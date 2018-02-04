@@ -9,8 +9,8 @@ import org.usfirst.frc.team6359.robot.commands.CMD_LiftTo;
 import org.usfirst.frc.team6359.robot.commands.CMD_LiftWheelsStop;
 
 import edu.wpi.first.wpilibj.Encoder;
+import edu.wpi.first.wpilibj.Spark;
 import edu.wpi.first.wpilibj.SpeedController;
-import edu.wpi.first.wpilibj.Victor;
 import edu.wpi.first.wpilibj.command.PIDSubsystem;
 
 /**
@@ -36,10 +36,10 @@ public class SS_Lift extends PIDSubsystem {
 		super("Lift", 1.0, 0.0, 0.0);
 		setAbsoluteTolerance(tolerance);
 
-		leftWheelMotor = new Victor(RobotMap.liftWheelLeft);
-		rightWheelMotor = new Victor(RobotMap.liftWheelRight);
-		lift1 = new Victor(RobotMap.liftMotor1);
-		lift2 = new Victor(RobotMap.liftMotor2);
+		leftWheelMotor = new Spark(RobotMap.liftWheelLeft);
+		rightWheelMotor = new Spark(RobotMap.liftWheelRight);
+		lift1 = new Spark(RobotMap.liftMotor1);
+		lift2 = new Spark(RobotMap.liftMotor2);
 
 		leftWheelMotor.setInverted(false);
 		rightWheelMotor.setInverted(true);

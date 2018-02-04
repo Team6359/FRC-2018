@@ -52,7 +52,8 @@ public class MoveController extends Command {
 		Robot.driveTrain.ControllerDrive(lX, lY, rX, rY);
 		Robot.intake.Control(rB);
 		Robot.lift.Control(lT, rT, lB, rB, up, down);
-	
+		Robot.hang.Control(x, y);
+		
 	}
 
 	// Make this return true when this Command no longer needs to run execute()

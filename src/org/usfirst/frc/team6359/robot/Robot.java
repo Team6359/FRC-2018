@@ -29,6 +29,7 @@ public class Robot extends IterativeRobot {
 	public static SS_Sensors sensors;
 	public static SS_Intake intake;
 	public static SS_Lift lift;
+	public static SS_Hang hang;
 
 	Command autonomousCommand;
 	Command driveStraight;
@@ -41,6 +42,7 @@ public class Robot extends IterativeRobot {
 		sensors = new SS_Sensors();
 		intake = new SS_Intake();
 		lift = new SS_Lift();
+		hang = new SS_Hang();
 
 		
 		System.out.println("Robot Init");

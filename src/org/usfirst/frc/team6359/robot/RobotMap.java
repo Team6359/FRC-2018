@@ -1,7 +1,5 @@
 package org.usfirst.frc.team6359.robot;
 
-import edu.wpi.first.wpilibj.DigitalSource;
-
 public class RobotMap {
 	
 	/*
@@ -31,23 +29,34 @@ public class RobotMap {
 	public static int CL = 4;
 	
 	//Victor
-	public static int H1 = 1;
-	public static int FL = 2;
-	public static int FR = 3;
+	public static final int H1 = 1;
+	public static final int FL = 2;
+	public static final int FR = 3;
+	public static final int winch = 4;
 	
-	public static int intakeLeft = 4;
-	public static int intakeRight = 5;
+	//Spark
+	public static final int intakeLeft = 0;
+	public static final int intakeRight = 1;
 	
-	public static int liftWheelLeft = 9;
-	public static int liftWheelRight = 10;
+	public static final int liftWheelLeft = 2;
+	public static final int liftWheelRight = 3;
 	
-	public static int liftMotor1 = 11;
-	public static int liftMotor2 = 12;
+	public static final int liftMotor1 = 4;
+	public static final int liftMotor2 = 5;
 	
-	public static DigitalSource rEncoder1;
-	public static DigitalSource rEncoder2;
-	public static DigitalSource lEncoder1;
-	public static DigitalSource lEncoder2;
+//	public static DigitalSource rEncoder1;
+//	public static DigitalSource rEncoder2;
+//	public static DigitalSource lEncoder1;
+//	public static DigitalSource lEncoder2;
+//	public static DigitalSource liftEncoder1;
+//	public static DigitalSource liftEncoder2;
+
+	public static final int rEncoder1 = 0;
+	public static final int rEncoder2 = 1;
+	public static final int lEncoder1 = 2;
+	public static final int lEncoder2 = 3;
+	public static final int liftEncoder1 = 4;
+	public static final int liftEncoder2 = 5;
 
 	public static double cpiLift = 271.63;
 	//Inches * cpiLift

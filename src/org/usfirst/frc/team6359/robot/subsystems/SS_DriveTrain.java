@@ -1,5 +1,6 @@
 package org.usfirst.frc.team6359.robot.subsystems;
 
+import org.usfirst.frc.team6359.robot.Robot;
 import org.usfirst.frc.team6359.robot.RobotMap;
 import org.usfirst.frc.team6359.robot.commands.MoveController;
 
@@ -19,20 +20,17 @@ public class SS_DriveTrain extends Subsystem {
 	double gearVal;
 	String gearNumber;
 
-	double x, y, strafe, leftSpeed, rightSpeed, strafeSpeed = 0, strafeSetPoint;
+	double x, y, strafe, leftSpeed, rightSpeed, strafeSpeed = 0, strafeSetPoint, error;
 
 	public static SpeedController FL, FR, H1;
 	public static VictorSPX CL, BL, CR, BR;
-
-	//Encoder lEncoder = Robot.sensors.getEncLeft();
-	//Encoder rEncoder = Robot.sensors.getEncRight();
-
-	//PIDController drivePIDLeft = new PIDController(1, 0, 0, lEncoder, null);
 	
-	int error = 0;
+	double pTurnScl = 0.5;
 
-	int kSlotIdx = 0;
+	double lEncoder;
+	double rEncoder;
 
+	
 	public SS_DriveTrain() {
 
 		FL = new Victor(RobotMap.FL);
@@ -52,30 +50,21 @@ public class SS_DriveTrain extends Subsystem {
 		CL.setInverted(false);
 		BL.setInverted(false);
 		H1.setInverted(false);
-
-		// BR.selectProfileSlot(kSlotIdx, 0);
-		// BR.config_kF(kSlotIdx, 0.2, 10);
-		// BR.config_kP(kSlotIdx, 0.2, 10);
-		// BR.config_kI(kSlotIdx, 0, 10);
-		// BR.config_kD(kSlotIdx, 0, 10);
-		//
+		
+		lEncoder = Robot.sensors.leftEncoder(true);
+		rEncoder = Robot.sensors.rightEncoder(true);
 
 	}
 
 
 	public void ControllerDrive(double leftXAxis, double leftYAxis, double rightXAxis, double rightYAxis) {
-		// squares joystick inputs
-		y = Math.abs(leftYAxis) * leftYAxis * Math.abs(leftYAxis);
-		x = Math.abs(rightXAxis) * rightXAxis * Math.abs(rightXAxis) * -1;
+		// cubes joystick inputs
+		y = Math.pow(leftYAxis, 3);
+		x = Math.pow(rightYAxis, 3);
 		strafe = Math.abs(leftXAxis) * leftXAxis;
 
-		// Formula for arcade drive
-		
-
-		//error = rEncoder - lEncoder;
+		error = (rEncoder - lEncoder) * pTurnScl;
 	
-		
-
 		if (Math.abs(leftSpeed - rightSpeed) > 0.1) {
 			leftSpeed *= 0.5;
 			rightSpeed *= 0.5;
