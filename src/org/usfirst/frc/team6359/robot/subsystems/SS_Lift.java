@@ -1,5 +1,6 @@
 package org.usfirst.frc.team6359.robot.subsystems;
 
+import org.usfirst.frc.team6359.robot.Robot;
 import org.usfirst.frc.team6359.robot.RobotMap;
 import org.usfirst.frc.team6359.robot.commands.CMD_LiftDecrement;
 import org.usfirst.frc.team6359.robot.commands.CMD_LiftIncrement;
@@ -8,10 +9,10 @@ import org.usfirst.frc.team6359.robot.commands.CMD_LiftOuttake;
 import org.usfirst.frc.team6359.robot.commands.CMD_LiftTo;
 import org.usfirst.frc.team6359.robot.commands.CMD_LiftWheelsStop;
 
-import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.Spark;
 import edu.wpi.first.wpilibj.SpeedController;
 import edu.wpi.first.wpilibj.command.PIDSubsystem;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  *
@@ -19,7 +20,7 @@ import edu.wpi.first.wpilibj.command.PIDSubsystem;
 public class SS_Lift extends PIDSubsystem {
 
 	public static SpeedController leftWheelMotor, rightWheelMotor, lift1, lift2;
-	public static Encoder enc;
+	public static double encVal;
 
 	double tolerance = RobotMap.cpiLift / 4; // 1/4 in tolerance
 
@@ -45,6 +46,8 @@ public class SS_Lift extends PIDSubsystem {
 		rightWheelMotor.setInverted(true);
 		lift1.setInverted(false);
 		lift2.setInverted(false);
+		
+		disable();
 
 	}
 
@@ -59,7 +62,12 @@ public class SS_Lift extends PIDSubsystem {
 	}
 
 	public void Control(double lT, double rT, boolean lB, boolean rB, boolean up, boolean down) {
-		double inputSpeed = rT - lT;
+		
+		//encVal = Robot.sensors.liftEncoder(false);
+		
+		disable();
+		
+		double inputSpeed = lT - rT;
 		if (rB)
 			new CMD_LiftIntake();
 		else if (lB)
@@ -68,9 +76,9 @@ public class SS_Lift extends PIDSubsystem {
 			new CMD_LiftWheelsStop();
 
 		if (Math.abs(inputSpeed) <= triggerTolerance) {
-			enable();
+			//enable();
 			if (manual)
-				setSetpoint(enc.getRaw());
+				setSetpoint(encVal);
 		} else {
 			disable();
 		}
@@ -91,8 +99,19 @@ public class SS_Lift extends PIDSubsystem {
 	}
 
 	public void Lift(double speed) {
-		lift1.set(speed);
-		lift2.set(speed);
+		
+		if (speed < 0){
+			lift1.set(speed * 0.8);
+			lift2.set(speed * 0.8);	
+		}else{
+			lift1.set(speed * 0.65);
+			lift2.set(speed * 0.65);	
+		}
+		
+		
+		SmartDashboard.putNumber("Lift Speed", speed);
+		SmartDashboard.putNumber("Lift Enc", encVal);
+		
 	}
 
 	public void increment() {
@@ -107,7 +126,7 @@ public class SS_Lift extends PIDSubsystem {
 	}
 
 	protected double returnPIDInput() {
-		return enc.getRaw();
+		return encVal;
 	}
 
 	protected void usePIDOutput(double output) {

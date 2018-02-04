@@ -1,13 +1,12 @@
 package org.usfirst.frc.team6359.robot.subsystems;
 
 import org.usfirst.frc.team6359.robot.RobotMap;
-import org.usfirst.frc.team6359.robot.commands.CMD_IntakeClose;
-import org.usfirst.frc.team6359.robot.commands.CMD_IntakeOpen;
 
 import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.SpeedController;
 import edu.wpi.first.wpilibj.Victor;
 import edu.wpi.first.wpilibj.command.Subsystem;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  *
@@ -22,13 +21,13 @@ public class SS_Intake extends Subsystem {
 	private boolean rB;
 
 	public SS_Intake() {
-		solenoidLeft = new Solenoid(0);
-		solenoidRight = new Solenoid(1);
+		solenoidLeft = new Solenoid(1);
+		solenoidRight = new Solenoid(2);
 
 		intakeLeft = new Victor(RobotMap.intakeLeft);
 		intakeRight = new Victor(RobotMap.intakeRight);
 		
-		intakeRight.setInverted(true);
+		intakeRight.setInverted(false);
 		intakeLeft.setInverted(false);
 
 	}
@@ -45,19 +44,36 @@ public class SS_Intake extends Subsystem {
 //		}
 		
 		this.rB = rB;
+		//System.out.println("RB" + rB);
 		
 		if (rB){
-			new CMD_IntakeClose();
-		}else{
-			new CMD_IntakeOpen();
+			intakeClose();
+			intakeWheels(0.3);
+		}else if (!rB){
+			intakeOpen();
+			intakeWheels(0);
 		}
 		
+	}
+	
+	
+	public void intakeClose(){
+		Set_Position(0);
+		System.out.println("Intake Close");
+	}
+	
+	public void intakeOpen(){
+		Set_Position(1);
+		System.out.println("Intake Open");
 	}
 
 	public void Set_Position(int pos) {
 		// 0: open, 1: closed
 		solenoidLeft.set(pos == 0);
 		solenoidRight.set(pos != 0);
+		
+		SmartDashboard.putNumber("SolenoidLeft", pos);
+		System.out.println(pos);
 	}
 	
 	public boolean getRB(){
@@ -68,9 +84,10 @@ public class SS_Intake extends Subsystem {
 	public void initDefaultCommand() {
 	}
 
-	public void intakeWheels(int speed) {
+	public void intakeWheels(double speed) {
 		intakeLeft.set(speed);
 		intakeRight.set(speed);
+		SmartDashboard.putNumber("Intake Speed", speed);
 	}
 	
 }

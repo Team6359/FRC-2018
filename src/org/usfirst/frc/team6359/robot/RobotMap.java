@@ -29,20 +29,20 @@ public class RobotMap {
 	public static int CL = 4;
 	
 	//Victor
-	public static final int H1 = 1;
-	public static final int FL = 2;
-	public static final int FR = 3;
-	public static final int winch = 4;
+	public static final int H1 = 6;
+	public static final int FL = 8;
+	public static final int FR = 7;
+	public static final int winch = 9;
 	
 	//Spark
-	public static final int intakeLeft = 0;
-	public static final int intakeRight = 1;
+	public static final int intakeLeft = 3;
+	public static final int intakeRight = 2;
 	
-	public static final int liftWheelLeft = 2;
-	public static final int liftWheelRight = 3;
+	public static final int liftWheelLeft = 4;
+	public static final int liftWheelRight = 5;
 	
-	public static final int liftMotor1 = 4;
-	public static final int liftMotor2 = 5;
+	public static final int liftMotor1 = 0;
+	public static final int liftMotor2 = 1;
 	
 //	public static DigitalSource rEncoder1;
 //	public static DigitalSource rEncoder2;

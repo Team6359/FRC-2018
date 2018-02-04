@@ -33,6 +33,7 @@ public class Robot extends IterativeRobot {
 
 	Command autonomousCommand;
 	Command driveStraight;
+	public static Command intakeClose;
 	SendableChooser<Command> chooser = new SendableChooser<>();
 	
 	public void robotInit() {
@@ -43,7 +44,8 @@ public class Robot extends IterativeRobot {
 		intake = new SS_Intake();
 		lift = new SS_Lift();
 		hang = new SS_Hang();
-
+		
+		intakeClose = new CMD_IntakeClose();
 		
 		System.out.println("Robot Init");
 		

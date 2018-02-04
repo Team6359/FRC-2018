@@ -9,32 +9,20 @@ import edu.wpi.first.wpilibj.command.Command;
  */
 public class CMD_IntakeOpen extends Command {
 
-	boolean finished = false;
     public CMD_IntakeOpen() {
         requires(Robot.intake);
     }
 
     // Called just before this Command runs the first time
     protected void initialize() {
+      	Robot.intake.Set_Position(0);
+      	System.out.println("CMD_IntakeOpen");
     }
 
-    // Called repeatedly when this Command is scheduled to run
-    protected void execute(){
-    	Robot.intake.Set_Position(0);
-    	finished = true;
-    }
-
-    // Make this return true when this Command no longer needs to run execute()
+   // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-        return finished;
+        return true;
     }
 
-    // Called once after isFinished returns true
-    protected void end() {
-    }
-
-    // Called when another command which requires one or more of the same
-    // subsystems is scheduled to run
-    protected void interrupted() {
-    }
+    
 }

@@ -21,6 +21,7 @@ public class CMD_IntakeClose extends Command {
     // Called repeatedly when this Command is scheduled to run
     protected void execute(){
     	Robot.intake.Set_Position(1);
+    	System.out.println("CMD_IntakeClose");
     	finished = true;
     }
 

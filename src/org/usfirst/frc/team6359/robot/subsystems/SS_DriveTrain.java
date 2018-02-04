@@ -52,8 +52,8 @@ public class SS_DriveTrain extends Subsystem {
 		BL.setInverted(false);
 		H1.setInverted(false);
 		
-		lEncoder = Robot.sensors.leftEncoder(true);
-		rEncoder = Robot.sensors.rightEncoder(true);
+		//lEncoder = Robot.sensors.leftEncoder(true);
+		//rEncoder = Robot.sensors.rightEncoder(true);
 
 	}
 
@@ -64,15 +64,15 @@ public class SS_DriveTrain extends Subsystem {
 		x = Math.pow(rightYAxis, 3);
 		strafe = Math.abs(leftXAxis) * leftXAxis;
 
-		error = (rEncoder - lEncoder) * pTurnScl;
+		//error = (rEncoder - lEncoder) * pTurnScl;
 	
 		if (Math.abs(leftSpeed - rightSpeed) > 0.1) {
 			leftSpeed *= 0.5;
 			rightSpeed *= 0.5;
 			//Reset proportional controller
-			error = 0;
+			//error = 0;
 		}
-		
+		error = 0;
 		leftSpeed = (y + x) + error;
 		rightSpeed = (y - x) - error;
 		
@@ -87,7 +87,7 @@ public class SS_DriveTrain extends Subsystem {
 		} else
 			strafeSpeed = strafeSetPoint;
 
-		System.out.println("Strafe Speed: " + strafeSpeed);
+		//System.out.println("Strafe Speed: " + strafeSpeed);
 
 		// sends power numbers to Drive method
 		Drive(leftSpeed, rightSpeed, -strafeSpeed);
