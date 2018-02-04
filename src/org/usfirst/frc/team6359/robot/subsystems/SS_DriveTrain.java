@@ -10,6 +10,7 @@ import com.ctre.phoenix.motorcontrol.can.VictorSPX;
 import edu.wpi.first.wpilibj.SpeedController;
 import edu.wpi.first.wpilibj.Victor;
 import edu.wpi.first.wpilibj.command.Subsystem;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  *
@@ -104,6 +105,10 @@ public class SS_DriveTrain extends Subsystem {
 		H1.set(strafe);
 		FL.set(leftSpeed);
 		FR.set(rightSpeed);
+
+		SmartDashboard.putNumber("Drive Left Speed", leftSpeed);
+		SmartDashboard.putNumber("Drive Right Speed", rightSpeed);
+		SmartDashboard.putNumber("Drive Strafe Speed", strafe);
 
 	}
 
