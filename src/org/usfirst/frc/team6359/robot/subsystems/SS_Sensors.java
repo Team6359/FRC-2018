@@ -16,7 +16,7 @@ public class SS_Sensors extends Subsystem {
 
 	//Encoder encRight = new Encoder(RobotMap.rEncoder1, RobotMap.rEncoder2, true);
 	//Encoder encLeft = new Encoder(RobotMap.lEncoder1, RobotMap.lEncoder2, true);
-	//Encoder encLift = new Encoder(RobotMap.liftEncoder1, RobotMap.liftEncoder2, true);
+	Encoder encLift = new Encoder(RobotMap.liftEncoder1, RobotMap.liftEncoder2, true);
 	ADXRS450_Gyro gyro = new ADXRS450_Gyro();
 
 	public SS_Sensors() {
@@ -36,12 +36,12 @@ public class SS_Sensors extends Subsystem {
 //		return encLeft.getRaw();
 //	}
 //	
-//	public double liftEncoder(boolean reset) {
-//		if (reset) {
-//			encLift.reset();
-//		}
-//		return encLift.getRaw();
-//	}
+	public double liftEncoder(boolean reset) {
+		if (reset) {
+			encLift.reset();
+		}
+		return encLift.getRaw();
+	}
 
 	public double gyro(boolean reset) {
 		if (reset) {

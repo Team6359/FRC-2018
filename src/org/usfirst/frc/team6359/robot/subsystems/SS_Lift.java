@@ -1,5 +1,6 @@
 package org.usfirst.frc.team6359.robot.subsystems;
 
+import org.usfirst.frc.team6359.robot.Robot;
 import org.usfirst.frc.team6359.robot.RobotMap;
 import org.usfirst.frc.team6359.robot.commands.CMD_LiftDecrement;
 import org.usfirst.frc.team6359.robot.commands.CMD_LiftIncrement;
@@ -46,6 +47,8 @@ public class SS_Lift extends PIDSubsystem {
 		rightWheelMotor.setInverted(true);
 		lift1.setInverted(false);
 		lift2.setInverted(false);
+		
+		encVal = Robot.sensors.liftEncoder(true);
 		
 		disable();
 
@@ -95,6 +98,8 @@ public class SS_Lift extends PIDSubsystem {
 		}
 
 		debounce = up || down;
+		
+		System.out.println("ENC: " + Robot.sensors.liftEncoder(false));
 
 	}
 
