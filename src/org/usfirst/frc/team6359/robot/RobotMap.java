@@ -29,9 +29,9 @@ public class RobotMap {
 	public static int CL = 4;
 	
 	//Victor
-	public static final int H1 = 6;
+	public static final int H1 = 7;
 	public static final int FL = 8;
-	public static final int FR = 7;
+	public static final int FR = 6;
 	public static final int winch = 9;
 	
 	//Spark

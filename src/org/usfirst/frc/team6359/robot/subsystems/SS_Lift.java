@@ -1,6 +1,5 @@
 package org.usfirst.frc.team6359.robot.subsystems;
 
-import org.usfirst.frc.team6359.robot.Robot;
 import org.usfirst.frc.team6359.robot.RobotMap;
 import org.usfirst.frc.team6359.robot.commands.CMD_LiftDecrement;
 import org.usfirst.frc.team6359.robot.commands.CMD_LiftIncrement;
@@ -11,6 +10,7 @@ import org.usfirst.frc.team6359.robot.commands.CMD_LiftWheelsStop;
 
 import edu.wpi.first.wpilibj.Spark;
 import edu.wpi.first.wpilibj.SpeedController;
+import edu.wpi.first.wpilibj.Victor;
 import edu.wpi.first.wpilibj.command.PIDSubsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
@@ -37,8 +37,8 @@ public class SS_Lift extends PIDSubsystem {
 		super("Lift", 1.0, 0.0, 0.0);
 		setAbsoluteTolerance(tolerance);
 
-		leftWheelMotor = new Spark(RobotMap.liftWheelLeft);
-		rightWheelMotor = new Spark(RobotMap.liftWheelRight);
+		leftWheelMotor = new Victor(RobotMap.liftWheelLeft);
+		rightWheelMotor = new Victor(RobotMap.liftWheelRight);
 		lift1 = new Spark(RobotMap.liftMotor1);
 		lift2 = new Spark(RobotMap.liftMotor2);
 
