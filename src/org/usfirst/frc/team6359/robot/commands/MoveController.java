@@ -51,7 +51,7 @@ public class MoveController extends Command {
 
 		Robot.driveTrain.ControllerDrive(lX, lY, rX, rY);
 		Robot.intake.Control(rB);
-		Robot.lift.Control(lT, rT, lB, rB, up, down);
+		Robot.lift.Control(lT, rT, lB, rB, up, down, a);
 		Robot.hang.Control(x, y);
 		
 	}
