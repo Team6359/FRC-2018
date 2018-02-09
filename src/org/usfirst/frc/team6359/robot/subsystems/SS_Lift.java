@@ -102,8 +102,8 @@ public class SS_Lift extends PIDSubsystem {
 		debounce = up || down;
 		
 		//System.out.println("ENC: " + Robot.sensors.liftEncoder(false));
-		Robot.sensors.liftLimitHigh();
-		Robot.sensors.liftLimitLow();
+		Robot.sensors.liftEncoder(false);
+		Robot.sensors.cubeIntake();
 		
 	}
 

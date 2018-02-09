@@ -1,12 +1,11 @@
 package org.usfirst.frc.team6359.robot.subsystems;
 
-import org.usfirst.frc.team6359.robot.Robot;
-import org.usfirst.frc.team6359.robot.RobotMap;
-
 import edu.wpi.first.wpilibj.ADXRS450_Gyro;
+import edu.wpi.first.wpilibj.AnalogInput;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.command.Subsystem;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  *
@@ -21,12 +20,14 @@ public class SS_Sensors extends Subsystem {
 	Encoder encLift;
 	DigitalInput limitSwitchHigh;
 	DigitalInput limitSwitchLow;
+	AnalogInput cubeIntake;
 	ADXRS450_Gyro gyro = new ADXRS450_Gyro();
 
 	public SS_Sensors() {
-		encLift  = new Encoder(1, 0, false, Encoder.EncodingType.k4X);
+		encLift  = new Encoder(0, 1, false, Encoder.EncodingType.k4X);
 		limitSwitchHigh = new DigitalInput(4);
 		limitSwitchLow = new DigitalInput(5);
+		cubeIntake = new AnalogInput(3);
 	}
 //	public double rightEncoder(boolean reset) {
 //		if (reset) {
@@ -64,6 +65,11 @@ public class SS_Sensors extends Subsystem {
 			gyro.reset();
 		}
 		return gyro.getAngle();
+	}
+	
+	public double cubeIntake() {
+		SmartDashboard.putNumber("CUBE INTAKE LIMIT", cubeIntake.getVoltage());
+		return cubeIntake.getVoltage();
 	}
 
 	public void initDefaultCommand() {
