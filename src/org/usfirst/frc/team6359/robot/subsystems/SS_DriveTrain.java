@@ -1,6 +1,5 @@
 package org.usfirst.frc.team6359.robot.subsystems;
 
-import org.usfirst.frc.team6359.robot.Robot;
 import org.usfirst.frc.team6359.robot.RobotMap;
 import org.usfirst.frc.team6359.robot.commands.MoveController;
 
@@ -84,7 +83,7 @@ public class SS_DriveTrain extends Subsystem {
 //		} else if ((leftSpeed < curSpeedLeft && leftSpeed < 0)){
 //			curSpeedLeft -= leftSpeed / 100;
 //		}
-//		
+//	
 //		if ((rightSpeed > curSpeedRight && rightSpeed > 0)){
 //			curSpeedRight += rightSpeed / 100;
 //		} else if ((rightSpeed < curSpeedRight && rightSpeed < 0)){
@@ -98,7 +97,7 @@ public class SS_DriveTrain extends Subsystem {
 //		if ((rightSpeed < 0.1 && curSpeedRight > 0) || (rightSpeed > -0.1 && curSpeedRight < 0)){
 //			curSpeedRight = 0;
 //		}
-//		
+//	
 		
 		strafeSetPoint = strafe;
 
