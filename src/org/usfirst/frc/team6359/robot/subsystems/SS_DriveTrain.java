@@ -78,26 +78,26 @@ public class SS_DriveTrain extends Subsystem {
 		leftSpeed = (y + x) + error;
 		rightSpeed = (y - x) - error;
 		
-		if ((leftSpeed > curSpeedLeft && leftSpeed > 0)){
-			curSpeedLeft += leftSpeed / 100;
-		} else if ((leftSpeed < curSpeedLeft && leftSpeed < 0)){
-			curSpeedLeft -= leftSpeed / 100;
-		}
-		
-		if ((rightSpeed > curSpeedRight && rightSpeed > 0)){
-			curSpeedRight += rightSpeed / 100;
-		} else if ((rightSpeed < curSpeedRight && rightSpeed < 0)){
-			curSpeedRight -= rightSpeed / 100;
-		}
-		
-		if ((leftSpeed < 0.1 && curSpeedLeft > 0) || (leftSpeed > -0.1 && curSpeedLeft < 0)){
-			curSpeedLeft = 0;
-		}
-		
-		if ((rightSpeed < 0.1 && curSpeedRight > 0) || (rightSpeed > -0.1 && curSpeedRight < 0)){
-			curSpeedRight = 0;
-		}
-		
+//		if ((leftSpeed > curSpeedLeft && leftSpeed > 0)){
+//			curSpeedLeft += leftSpeed / 100;
+//		} else if ((leftSpeed < curSpeedLeft && leftSpeed < 0)){
+//			curSpeedLeft -= leftSpeed / 100;
+//		}
+//	
+//		if ((rightSpeed > curSpeedRight && rightSpeed > 0)){
+//			curSpeedRight += rightSpeed / 100;
+//		} else if ((rightSpeed < curSpeedRight && rightSpeed < 0)){
+//			curSpeedRight -= rightSpeed / 100;
+//		}
+//		
+//		if ((leftSpeed < 0.1 && curSpeedLeft > 0) || (leftSpeed > -0.1 && curSpeedLeft < 0)){
+//			curSpeedLeft = 0;
+//		}
+//		
+//		if ((rightSpeed < 0.1 && curSpeedRight > 0) || (rightSpeed > -0.1 && curSpeedRight < 0)){
+//			curSpeedRight = 0;
+//		}
+//	
 		
 		strafeSetPoint = strafe;
 
