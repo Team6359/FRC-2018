@@ -113,7 +113,8 @@ public class SS_DriveTrain extends Subsystem {
 		//System.out.println("Strafe Speed: " + strafeSpeed);
 
 		// sends power numbers to Drive method
-		Drive(leftSpeed, rightSpeed, -strafeSpeed);
+		//Drive(leftSpeed, rightSpeed, -strafeSpeed);
+		Drive(0, 0, 0);
 
 	}
 
@@ -132,6 +133,7 @@ public class SS_DriveTrain extends Subsystem {
 		SmartDashboard.putNumber("Drive Left Speed", leftSpeed);
 		SmartDashboard.putNumber("Drive Right Speed", rightSpeed);
 		SmartDashboard.putNumber("Drive Strafe Speed", strafe);
+		
 
 	}
 

@@ -64,7 +64,7 @@ public class SS_Lift extends PIDSubsystem {
 		// setDefaultCommand(new MySpecialCommand());
 	}
 
-	public void Control(double lT, double rT, boolean lB, boolean rB, boolean up, boolean down) {
+	public void Control(double lT, double rT, boolean lB, boolean rB, boolean up, boolean down, boolean a) {
 		
 		//encVal = Robot.sensors.liftEncoder(false);
 		
@@ -90,7 +90,9 @@ public class SS_Lift extends PIDSubsystem {
 
 		if (manual)
 			Lift(inputSpeed);
-
+		else
+			Lift(0);
+		
 		if (up && !debounce) {
 			new CMD_LiftIncrement();
 		} else if (down && !debounce) {
@@ -99,20 +101,37 @@ public class SS_Lift extends PIDSubsystem {
 
 		debounce = up || down;
 		
-		System.out.println("ENC: " + Robot.sensors.liftEncoder(false));
-
+		//System.out.println("ENC: " + Robot.sensors.liftEncoder(false));
+		Robot.sensors.liftLimitHigh();
+		Robot.sensors.liftLimitLow();
+		
 	}
 
 	public void Lift(double speed) {
 		
-		if (speed < 0){
+
+		boolean liftLimitHigh = Robot.sensors.liftLimitHigh();
+		boolean liftLimitLow = Robot.sensors.liftLimitLow();
+
+		if (speed < 0 && !liftLimitHigh){
 			lift1.set(speed * 0.8);
 			lift2.set(speed * 0.8);	
-		}else{
-			lift1.set(speed * 0.65);
-			lift2.set(speed * 0.65);	
+		} else if (speed < 0){
+			lift1.set(0);
+			lift2.set(0);
 		}
 		
+		if (speed > 0 && !liftLimitLow){
+			lift1.set(speed * 0.65);
+			lift2.set(speed * 0.65);
+		} else if (speed > 0){
+			lift1.set(0);
+			lift2.set(0);
+		}
+
+		System.out.println("LOW " + liftLimitLow);
+		System.out.println("HIGH " + liftLimitHigh);
+	
 		
 		SmartDashboard.putNumber("Lift Speed", speed);
 		SmartDashboard.putNumber("Lift Enc", encVal);
@@ -135,7 +154,8 @@ public class SS_Lift extends PIDSubsystem {
 	}
 
 	protected void usePIDOutput(double output) {
-		lift1.set(output);
-		lift2.set(output);
+		//lift1.set(output);
+		//lift2.set(output);
+		System.out.println("PID " + output);
 	}
 }
