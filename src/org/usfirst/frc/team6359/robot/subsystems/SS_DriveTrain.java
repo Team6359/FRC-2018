@@ -1,6 +1,5 @@
 package org.usfirst.frc.team6359.robot.subsystems;
 
-import org.usfirst.frc.team6359.robot.Robot;
 import org.usfirst.frc.team6359.robot.RobotMap;
 import org.usfirst.frc.team6359.robot.commands.MoveController;
 
@@ -92,11 +91,11 @@ public class SS_DriveTrain extends Subsystem {
 		}
 		
 		if ((leftSpeed < 0.1 && curSpeedLeft > 0) || (leftSpeed > -0.1 && curSpeedLeft < 0)){
-			leftSpeed = 0;
+			curSpeedLeft = 0;
 		}
 		
 		if ((rightSpeed < 0.1 && curSpeedRight > 0) || (rightSpeed > -0.1 && curSpeedRight < 0)){
-			rightSpeed = 0;
+			curSpeedRight = 0;
 		}
 		
 		
