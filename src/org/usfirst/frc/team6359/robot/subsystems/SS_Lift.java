@@ -3,11 +3,6 @@ package org.usfirst.frc.team6359.robot.subsystems;
 import org.usfirst.frc.team6359.robot.Robot;
 import org.usfirst.frc.team6359.robot.RobotMap;
 import org.usfirst.frc.team6359.robot.commands.CMD_LiftDecrement;
-import org.usfirst.frc.team6359.robot.commands.CMD_LiftIncrement;
-import org.usfirst.frc.team6359.robot.commands.CMD_LiftIntake;
-import org.usfirst.frc.team6359.robot.commands.CMD_LiftOuttake;
-import org.usfirst.frc.team6359.robot.commands.CMD_LiftTo;
-import org.usfirst.frc.team6359.robot.commands.CMD_LiftWheelsStop;
 
 import edu.wpi.first.wpilibj.Spark;
 import edu.wpi.first.wpilibj.SpeedController;
@@ -15,9 +10,6 @@ import edu.wpi.first.wpilibj.Victor;
 import edu.wpi.first.wpilibj.command.PIDSubsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
-/**
- *
- */
 public class SS_Lift extends PIDSubsystem {
 
 	public static SpeedController leftWheelMotor, rightWheelMotor, lift1, lift2;
@@ -67,9 +59,8 @@ public class SS_Lift extends PIDSubsystem {
 
 	public void Control(double lT, double rT, boolean lB, boolean rB, boolean up, boolean down, boolean a) {
 		
-		//encVal = Robot.sensors.liftEncoder(false);
+		encVal = Robot.sensors.liftEncoder(false);
 		setSetpoint(0);
-		enable();
 		
 		double inputSpeed = lT - rT;
 		if (rB)
@@ -80,7 +71,7 @@ public class SS_Lift extends PIDSubsystem {
 			runWheels(0);
 
 		if (Math.abs(inputSpeed) <= triggerTolerance) {
-			//enable();
+			enable();
 			if (manual)
 				setSetpoint(encVal);
 		} else {
@@ -95,14 +86,16 @@ public class SS_Lift extends PIDSubsystem {
 			Lift(0);
 		
 		if (up && !debounce) {
-			new CMD_LiftIncrement();
+			increment();
+			System.out.println("INCREMENT");
 		} else if (down && !debounce) {
-			new CMD_LiftDecrement();
+			decrement();
+			System.out.println("DECREMENT");
 		}
 
 		debounce = up || down;
 		
-		//System.out.println("ENC: " + Robot.sensors.liftEncoder(false));
+		System.out.println("ENC: " + encVal);
 		Robot.sensors.liftEncoder(false);
 		Robot.sensors.cubeIntake();
 		
@@ -141,12 +134,36 @@ public class SS_Lift extends PIDSubsystem {
 
 	public void increment() {
 		if (liftPos < 5)
-			new CMD_LiftTo(++liftPos);
+			liftTo(++liftPos);
 	}
 
 	public void decrement() {
 		if (liftPos > 0) {
-			new CMD_LiftTo(--liftPos);
+			liftTo(--liftPos);
+		}
+	}
+	
+	public void liftTo(int index) {
+		
+		switch (index) {
+		case 0:
+			setSetpoint(RobotMap.liftSetPointFloor);
+			break;
+		case 1:
+			setSetpoint(RobotMap.liftSetPointDrive);
+			break;
+		case 2:
+			setSetpoint(RobotMap.liftSetPointSwitch);
+			break;
+		case 3:
+			setSetpoint(RobotMap.liftSetPointScaleLow);
+			break;
+		case 4:
+			setSetpoint(RobotMap.liftSetPointScaleNeutral);
+			break;
+		case 5:
+			setSetpoint(RobotMap.liftSetPointScaleHigh);
+			break;
 		}
 	}
 
