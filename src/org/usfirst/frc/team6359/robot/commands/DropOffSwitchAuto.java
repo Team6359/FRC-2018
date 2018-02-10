@@ -14,3 +14,4 @@ public class DropOffSwitchAuto extends CommandGroup {
     	addSequential(new CMD_LiftOuttake());
     }
 }
+ 
