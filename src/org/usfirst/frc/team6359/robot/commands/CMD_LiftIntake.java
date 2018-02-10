@@ -15,7 +15,7 @@ public class CMD_LiftIntake extends Command {
 
     // Called just before this Command runs the first time
     protected void initialize() {
-    	Robot.lift.RunWheels(-1);
+    	//.lift.RunWheels(-1);
     }
 
     // Make this return true when this Command no longer needs to run execute()

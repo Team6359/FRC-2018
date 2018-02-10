@@ -20,14 +20,14 @@ public class SS_Sensors extends Subsystem {
 	Encoder encLift;
 	DigitalInput limitSwitchHigh;
 	DigitalInput limitSwitchLow;
-	AnalogInput cubeIntake;
+	DigitalInput cubeIntake;
 	ADXRS450_Gyro gyro = new ADXRS450_Gyro();
 
 	public SS_Sensors() {
 		encLift  = new Encoder(0, 1, false, Encoder.EncodingType.k4X);
-		limitSwitchHigh = new DigitalInput(4);
+		limitSwitchHigh = new DigitalInput(2);
 		limitSwitchLow = new DigitalInput(5);
-		cubeIntake = new AnalogInput(3);
+		cubeIntake = new DigitalInput(4);
 	}
 //	public double rightEncoder(boolean reset) {
 //		if (reset) {
@@ -52,7 +52,7 @@ public class SS_Sensors extends Subsystem {
 	}
 
 	public boolean liftLimitHigh() {
-	//	System.out.println("LIMIT SWITCH HIGH: " + limitSwitchHigh.get());
+		System.out.println("LIMIT SWITCH HIGH: " + !limitSwitchHigh.get());
 		return !limitSwitchHigh.get();
 	}
 	
@@ -67,9 +67,9 @@ public class SS_Sensors extends Subsystem {
 		return gyro.getAngle();
 	}
 	
-	public double cubeIntake() {
-		SmartDashboard.putNumber("CUBE INTAKE LIMIT", cubeIntake.getVoltage());
-		return cubeIntake.getVoltage();
+	public boolean cubeIntake() {
+		System.out.println("CUBE INTAKE LIMIT  "+ !cubeIntake.get());
+		return !cubeIntake.get();
 	}
 
 	public void initDefaultCommand() {

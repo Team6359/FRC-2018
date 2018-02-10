@@ -58,7 +58,7 @@ public class RobotMap {
 	public static final int liftEncoder1 = 2;
 	public static final int liftEncoder2 = 3;
 
-	public static double cpiLift = 271.63;
+	public static double cpiLift = 4139 * 3.141;
 	//Inches * cpiLift
 	public static double liftSetPointFloor = 0;
 	public static double liftSetPointDrive = 2 * cpiLift;

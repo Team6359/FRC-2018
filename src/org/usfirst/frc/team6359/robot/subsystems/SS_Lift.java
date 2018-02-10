@@ -23,7 +23,7 @@ public class SS_Lift extends PIDSubsystem {
 	public static SpeedController leftWheelMotor, rightWheelMotor, lift1, lift2;
 	public static double encVal;
 
-	double tolerance = RobotMap.cpiLift / 4; // 1/4 in tolerance
+	double tolerance = 0; // 1/4 in tolerance
 
 	boolean manual = false;
 
@@ -37,7 +37,7 @@ public class SS_Lift extends PIDSubsystem {
 
 		super("Lift", 1.0, 0.0, 0.0);
 		setAbsoluteTolerance(tolerance);
-
+		setOutputRange(-1, 1);
 		leftWheelMotor = new Victor(RobotMap.liftWheelLeft);
 		rightWheelMotor = new Victor(RobotMap.liftWheelRight);
 		lift1 = new Spark(RobotMap.liftMotor1);
@@ -50,11 +50,12 @@ public class SS_Lift extends PIDSubsystem {
 		
 		encVal = Robot.sensors.liftEncoder(true);
 		
-		disable();
+		setSetpoint(0);
+		
 
 	}
 
-	public void RunWheels(double speed) {
+	public void runWheels(double speed) {
 		leftWheelMotor.set(speed);
 		rightWheelMotor.set(speed);
 	}
@@ -67,16 +68,16 @@ public class SS_Lift extends PIDSubsystem {
 	public void Control(double lT, double rT, boolean lB, boolean rB, boolean up, boolean down, boolean a) {
 		
 		//encVal = Robot.sensors.liftEncoder(false);
-		
-		disable();
+		setSetpoint(0);
+		enable();
 		
 		double inputSpeed = lT - rT;
 		if (rB)
-			new CMD_LiftIntake();
+			runWheels(-1);
 		else if (lB)
-			new CMD_LiftOuttake();
+			runWheels(1);
 		else
-			new CMD_LiftWheelsStop();
+			runWheels(0);
 
 		if (Math.abs(inputSpeed) <= triggerTolerance) {
 			//enable();
@@ -129,8 +130,8 @@ public class SS_Lift extends PIDSubsystem {
 			lift2.set(0);
 		}
 
-		System.out.println("LOW " + liftLimitLow);
-		System.out.println("HIGH " + liftLimitHigh);
+		//System.out.println("LOW " + liftLimitLow);
+		//System.out.println("HIGH " + liftLimitHigh);
 	
 		
 		SmartDashboard.putNumber("Lift Speed", speed);
@@ -157,5 +158,6 @@ public class SS_Lift extends PIDSubsystem {
 		//lift1.set(output);
 		//lift2.set(output);
 		System.out.println("PID " + output);
+		System.out.println("Setpoint " + getSetpoint());
 	}
 }
