@@ -1,14 +1,13 @@
 package org.usfirst.frc.team6359.robot.commands;
 
-import org.usfirst.frc.team6359.robot.Robot;
-
 import edu.wpi.first.wpilibj.command.Command;
 
 /**
  *
  */
 public class CMD_DriveStraight extends Command{
-
+	
+	@SuppressWarnings("unused")
 	private double cpi, _distance, spd;
 	private boolean finish;
 	

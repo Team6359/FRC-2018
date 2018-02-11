@@ -1,7 +1,6 @@
 package org.usfirst.frc.team6359.robot.subsystems;
 
 import edu.wpi.first.wpilibj.ADXRS450_Gyro;
-import edu.wpi.first.wpilibj.AnalogInput;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.command.Subsystem;
@@ -26,7 +25,7 @@ public class SS_Sensors extends Subsystem {
 	public SS_Sensors() {
 		encLift  = new Encoder(0, 1, false, Encoder.EncodingType.k4X);
 		limitSwitchHigh = new DigitalInput(2);
-		limitSwitchLow = new DigitalInput(5);
+		limitSwitchLow = new DigitalInput(3);
 		cubeIntake = new DigitalInput(4);
 	}
 //	public double rightEncoder(boolean reset) {
@@ -47,17 +46,17 @@ public class SS_Sensors extends Subsystem {
 		if (reset) {
 			encLift.reset();
 		}
-		System.out.println("ENC: " + encLift.getRaw());
+		SmartDashboard.putNumber("Lift Encoder", encLift.getRaw());
 		return encLift.getRaw();
 	}
 
 	public boolean liftLimitHigh() {
-		System.out.println("LIMIT SWITCH HIGH: " + !limitSwitchHigh.get());
+		SmartDashboard.putBoolean("Limit Switch High", !limitSwitchHigh.get());
 		return !limitSwitchHigh.get();
 	}
 	
 	public boolean liftLimitLow() {
-	//	System.out.println("LIMIT SWITCH LOW: " + limitSwitchLow.get());
+		SmartDashboard.putBoolean("Limit Switch Low", !limitSwitchLow.get());
 		return !limitSwitchLow.get();
 	}
 	public double gyro(boolean reset) {
@@ -68,7 +67,7 @@ public class SS_Sensors extends Subsystem {
 	}
 	
 	public boolean cubeIntake() {
-		System.out.println("CUBE INTAKE LIMIT  "+ !cubeIntake.get());
+		SmartDashboard.putBoolean("Cube Intake Switch", !cubeIntake.get());
 		return !cubeIntake.get();
 	}
 

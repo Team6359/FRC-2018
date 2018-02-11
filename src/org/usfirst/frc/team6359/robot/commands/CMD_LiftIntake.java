@@ -1,4 +1,4 @@
-ackage org.usfirst.frc.team6359.robot.commands;
+package org.usfirst.frc.team6359.robot.commands;
 
 import org.usfirst.frc.team6359.robot.Robot;
 
