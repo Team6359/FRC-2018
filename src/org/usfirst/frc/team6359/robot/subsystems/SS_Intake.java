@@ -1,5 +1,6 @@
 package org.usfirst.frc.team6359.robot.subsystems;
 
+import org.usfirst.frc.team6359.robot.Robot;
 import org.usfirst.frc.team6359.robot.RobotMap;
 
 import edu.wpi.first.wpilibj.Solenoid;
@@ -46,7 +47,7 @@ public class SS_Intake extends Subsystem {
 		this.rB = rB;
 		//System.out.println("RB" + rB);
 		
-		if (rB){
+		if (rB && Robot.sensors.liftLimitLow()){
 			intakeClose();
 			intakeWheels(0.3);
 		}else if (!rB){
