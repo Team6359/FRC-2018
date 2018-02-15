@@ -2,9 +2,7 @@ package org.usfirst.frc.team6359.robot.subsystems;
 
 import org.usfirst.frc.team6359.robot.Robot;
 import org.usfirst.frc.team6359.robot.RobotMap;
-import org.usfirst.frc.team6359.robot.commands.CMD_LiftDecrement;
 
-import edu.wpi.first.wpilibj.Spark;
 import edu.wpi.first.wpilibj.SpeedController;
 import edu.wpi.first.wpilibj.Victor;
 import edu.wpi.first.wpilibj.command.PIDSubsystem;
@@ -32,11 +30,11 @@ public class SS_Lift extends PIDSubsystem {
 		setOutputRange(-1, 1);
 		leftWheelMotor = new Victor(RobotMap.liftWheelLeft);
 		rightWheelMotor = new Victor(RobotMap.liftWheelRight);
-		lift1 = new Spark(RobotMap.liftMotor1);
-		lift2 = new Spark(RobotMap.liftMotor2);
+		lift1 = new Victor(RobotMap.liftMotor1);
+		lift2 = new Victor(RobotMap.liftMotor2);
 
-		leftWheelMotor.setInverted(false);
-		rightWheelMotor.setInverted(true);
+		leftWheelMotor.setInverted(true);
+		rightWheelMotor.setInverted(false);
 		lift1.setInverted(false);
 		lift2.setInverted(false);
 		
@@ -106,6 +104,11 @@ public class SS_Lift extends PIDSubsystem {
 
 		boolean liftLimitHigh = Robot.sensors.liftLimitHigh();
 		boolean liftLimitLow = Robot.sensors.liftLimitLow();
+		
+		if (speed == 0){
+			lift1.set(0);
+			lift2.set(0);
+		}
 
 		if (speed < 0 && !liftLimitHigh){
 			lift1.set(speed * 0.8);

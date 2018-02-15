@@ -29,20 +29,18 @@ public class RobotMap {
 	public static int CL = 4;
 	
 	//Victor
-	public static final int H1 = 7;
-	public static final int FL = 8;
-	public static final int FR = 6;
-	public static final int winch = 9;
+	public static final int H1 = 2;
+	public static final int FL = 1;
+	public static final int FR = 0;
+	public static final int winch = 3;
+	public static final int intakeLeft = 5;
+	public static final int intakeRight = 4;
 	
-	//Spark
-	public static final int intakeLeft = 3;
-	public static final int intakeRight = 2;
+	public static final int liftWheelLeft = 8;
+	public static final int liftWheelRight = 9;
 	
-	public static final int liftWheelLeft = 4;
-	public static final int liftWheelRight = 5;
-	
-	public static final int liftMotor1 = 0;
-	public static final int liftMotor2 = 1;
+	public static final int liftMotor1 = 6;
+	public static final int liftMotor2 = 7;
 	
 //	public static DigitalSource rEncoder1;
 //	public static DigitalSource rEncoder2;
@@ -51,12 +49,14 @@ public class RobotMap {
 //	public static DigitalSource liftEncoder1;
 //	public static DigitalSource liftEncoder2;
 
-	public static final int rEncoder1 = 0;
-	public static final int rEncoder2 = 1;
-	public static final int lEncoder1 = 2;
-	public static final int lEncoder2 = 3;
-	public static final int liftEncoder1 = 2;
-	public static final int liftEncoder2 = 3;
+	public static final int rEncoder1 = 6;
+	public static final int rEncoder2 = 7;
+	public static final int lEncoder1 = 8;
+	public static final int lEncoder2 = 9;
+	public static final int liftEncoder1 = 0;
+	public static final int liftEncoder2 = 1;
+	public static final int liftLimitHigh = 2;
+	public static final int liftLimitLow = 3;
 
 	public static double cpiLift = 4139 * 3.141;
 	//Inches * cpiLift

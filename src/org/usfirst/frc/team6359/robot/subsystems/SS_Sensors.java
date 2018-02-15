@@ -1,5 +1,7 @@
 package org.usfirst.frc.team6359.robot.subsystems;
 
+import org.usfirst.frc.team6359.robot.RobotMap;
+
 import edu.wpi.first.wpilibj.ADXRS450_Gyro;
 import edu.wpi.first.wpilibj.AnalogInput;
 import edu.wpi.first.wpilibj.DigitalInput;
@@ -25,8 +27,8 @@ public class SS_Sensors extends Subsystem {
 
 	public SS_Sensors() {
 		encLift  = new Encoder(0, 1, false, Encoder.EncodingType.k4X);
-		limitSwitchHigh = new DigitalInput(2);
-		limitSwitchLow = new DigitalInput(5);
+		limitSwitchHigh = new DigitalInput(RobotMap.liftLimitHigh);
+		limitSwitchLow = new DigitalInput(RobotMap.liftLimitLow);
 		cubeIntake = new DigitalInput(4);
 	}
 //	public double rightEncoder(boolean reset) {

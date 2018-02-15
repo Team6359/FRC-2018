@@ -47,6 +47,8 @@ public class Robot extends IterativeRobot {
 		
 		intakeClose = new CMD_IntakeClose();
 		
+		
+		
 		System.out.println("Robot Init");
 		
 		//chooser.addDefault("Default Auto", new ExampleCommand());

@@ -22,7 +22,7 @@ public class SS_Intake extends Subsystem {
 
 	public SS_Intake() {
 		solenoidLeft = new Solenoid(1);
-		solenoidRight = new Solenoid(2);
+		solenoidRight = new Solenoid(0);
 
 		intakeLeft = new Victor(RobotMap.intakeLeft);
 		intakeRight = new Victor(RobotMap.intakeRight);
