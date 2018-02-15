@@ -47,7 +47,7 @@ public class SS_Intake extends Subsystem {
 		this.rB = rB;
 		//System.out.println("RB" + rB);
 		
-		if (rB && Robot.sensors.liftLimitLow()){
+		if ((rB && Robot.sensors.liftLimitLow()) || (rB && Robot.bypassLimits)){
 			intakeClose();
 			intakeWheels(0.3);
 		}else if (!rB){

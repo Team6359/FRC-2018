@@ -1,5 +1,6 @@
 package org.usfirst.frc.team6359.robot.subsystems;
 
+import org.usfirst.frc.team6359.robot.Robot;
 import org.usfirst.frc.team6359.robot.RobotMap;
 import org.usfirst.frc.team6359.robot.commands.MoveController;
 
@@ -113,9 +114,10 @@ public class SS_DriveTrain extends Subsystem {
 
 		// sends power numbers to Drive method
 		Drive(leftSpeed, rightSpeed, -strafeSpeed);
-
+		Robot.sensors.leftEncoder(false);
+		Robot.sensors.rightEncoder(false);
 	}
-
+	
 	public void Drive(double leftSpeed, double rightSpeed, double strafe) {
 
 		// VictorSPX

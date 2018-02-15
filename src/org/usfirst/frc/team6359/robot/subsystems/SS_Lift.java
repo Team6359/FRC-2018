@@ -91,7 +91,9 @@ public class SS_Lift extends PIDSubsystem {
 
 
 		boolean up = DPad == 0;
+		boolean right = DPad == 90;
 		boolean down = DPad == 180;
+		boolean left = DPad == 270;
 
 		SmartDashboard.putNumber("DPad", DPad);
 		if (up && !debounce) {
@@ -100,6 +102,12 @@ public class SS_Lift extends PIDSubsystem {
 		} else if (down && !debounce) {
 			decrement();
 			System.out.println("DECREMENT");
+		} else if (right && !debounce) {
+			liftPos = 4;
+			liftTo(4);
+		} else if (left && !debounce) {
+			liftPos = 0;
+			liftTo(0);
 		}
 
 		debounce = up || down;
@@ -124,6 +132,11 @@ public class SS_Lift extends PIDSubsystem {
 
 		boolean liftLimitHigh = Robot.sensors.liftLimitHigh();
 		boolean liftLimitLow = Robot.sensors.liftLimitLow();
+		
+		if (Robot.bypassLimits) {
+			liftLimitHigh = false;
+			liftLimitLow = false;
+		}
 
 		if (speed == 0) {
 			lift1.set(0);
