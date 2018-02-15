@@ -22,19 +22,12 @@ public class SS_Sensors extends Subsystem {
 	ADXRS450_Gyro gyro = new ADXRS450_Gyro();
 
 	public SS_Sensors() {
-<<<<<<< HEAD
-		encLift  = new Encoder(0, 1, false, Encoder.EncodingType.k4X);
-		limitSwitchHigh = new DigitalInput(RobotMap.liftLimitHigh);
-		limitSwitchLow = new DigitalInput(RobotMap.liftLimitLow);
-		cubeIntake = new DigitalInput(4);
-=======
 		encLift  = new Encoder(RobotMap.liftEncoder1, RobotMap.liftEncoder2, false, Encoder.EncodingType.k4X);
 		limitSwitchHigh = new DigitalInput(2);
 		limitSwitchLow = new DigitalInput(3);
 		cubeIntake = new DigitalInput(3);
 		encRight.setReverseDirection(true);
 		encLeft.setReverseDirection(false);
->>>>>>> refs/remotes/origin/master
 	}
 	public double rightEncoder(boolean reset) {
 		if (reset) {

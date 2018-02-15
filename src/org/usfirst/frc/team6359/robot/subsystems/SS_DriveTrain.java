@@ -80,27 +80,6 @@ public class SS_DriveTrain extends Subsystem {
 		rightSpeed = (y - x) - error;
 		
 		if ((leftSpeed > curSpeedLeft && leftSpeed > 0)){
-<<<<<<< HEAD
-			curSpeedLeft += leftSpeed / 100;
-		} else if ((leftSpeed < curSpeedLeft && leftSpeed < 0)){
-			curSpeedLeft -= leftSpeed / 100;
-		}
-
-		if ((rightSpeed > curSpeedRight && rightSpeed > 0)){
-			curSpeedRight += rightSpeed / 100;
-		} else if ((rightSpeed < curSpeedRight && rightSpeed < 0)){
-			curSpeedRight -= rightSpeed / 100;
-		}
-		
-		if ((leftSpeed < 0.1 && curSpeedLeft > 0) || (leftSpeed > -0.1 && curSpeedLeft < 0)){
-			curSpeedLeft = 0;
-		}
-	
-		if ((rightSpeed < 0.1 && curSpeedRight > 0) || (rightSpeed > -0.1 && curSpeedRight < 0)){
-			curSpeedRight = 0;
-		}
-
-=======
 			curSpeedLeft += leftSpeed / 75;
 		} else if ((leftSpeed < curSpeedLeft && leftSpeed < 0)){
 			curSpeedLeft -= leftSpeed / 75;
@@ -120,7 +99,6 @@ public class SS_DriveTrain extends Subsystem {
 			curSpeedRight = 0;
 		}
 	
->>>>>>> refs/remotes/origin/master
 		
 		strafeSetPoint = strafe;
 
@@ -136,13 +114,8 @@ public class SS_DriveTrain extends Subsystem {
 
 		// sends power numbers to Drive method
 		Drive(leftSpeed, rightSpeed, -strafeSpeed);
-<<<<<<< HEAD
-		//Drive(0, 0, 0);
-
-=======
 		Robot.sensors.leftEncoder(false);
 		Robot.sensors.rightEncoder(false);
->>>>>>> refs/remotes/origin/master
 	}
 	
 	public void Drive(double leftSpeed, double rightSpeed, double strafe) {
