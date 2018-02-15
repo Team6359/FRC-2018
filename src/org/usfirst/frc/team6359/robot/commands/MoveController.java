@@ -26,6 +26,7 @@ public class MoveController extends Command {
 		@SuppressWarnings("unused")
 		boolean up, down, a, b, x, y, lB, rB, back, start, lClick, rClick;
 		double lX, lY, rX, rY, lT, rT;
+		int DPad;
 
 		lX = OI.controller1.getRawAxis(0);
 		lY = OI.controller1.getRawAxis(1);
@@ -45,13 +46,14 @@ public class MoveController extends Command {
 		start = OI.controller1.getRawButton(8);
 		lClick = OI.controller1.getRawButton(9);
 		rClick = OI.controller1.getRawButton(10);
+		DPad = OI.controller1.getPOV();
 		
 		up = OI.controller1.getRawButton(10);
 		down = OI.controller1.getRawButton(9);
 
 		Robot.driveTrain.ControllerDrive(lX, lY, rX, rY);
 		Robot.intake.Control(rB);
-		Robot.lift.Control(lT, rT, lB, rB, up, down, a);
+		Robot.lift.Control(lT, rT, lB, rB, DPad, a);
 		Robot.hang.Control(x, y);
 		
 	}

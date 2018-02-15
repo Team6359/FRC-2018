@@ -13,19 +13,19 @@ public class SS_Lift extends PIDSubsystem {
 	public static SpeedController leftWheelMotor, rightWheelMotor, lift1, lift2;
 	public static double encVal;
 
-	double tolerance = 0; // 1/4 in tolerance
+	double tolerance = RobotMap.cpiLift; // 1/4 in tolerance
 
 	boolean manual = false;
 
 	double triggerTolerance = 0.1;
 
-	public static int liftPos = 1; // Start in drive position
+	public static int liftPos = 0; // Start in drive position
 
 	boolean debounce = false;
 
 	public SS_Lift() {
 
-		super("Lift", 1.0, 0.0, 0.0);
+		super("Lift", 0.002, 0.0, 0.0001);
 		setAbsoluteTolerance(tolerance);
 		setOutputRange(-1, 1);
 		leftWheelMotor = new Victor(RobotMap.liftWheelLeft);
@@ -37,17 +37,20 @@ public class SS_Lift extends PIDSubsystem {
 		rightWheelMotor.setInverted(false);
 		lift1.setInverted(false);
 		lift2.setInverted(false);
-		
+
 		encVal = Robot.sensors.liftEncoder(true);
-		
+
 		setSetpoint(0);
-		
 
 	}
 
 	public void runWheels(double speed) {
+		if (speed < 0 && !Robot.sensors.cubeIntake()) {
+			speed = 0;
+		}
 		leftWheelMotor.set(speed);
 		rightWheelMotor.set(speed);
+
 	}
 
 	public void initDefaultCommand() {
@@ -55,11 +58,15 @@ public class SS_Lift extends PIDSubsystem {
 		// setDefaultCommand(new MySpecialCommand());
 	}
 
-	public void Control(double lT, double rT, boolean lB, boolean rB, boolean up, boolean down, boolean a) {
-		
+	public void Control(double lT, double rT, boolean lB, boolean rB, int DPad, boolean a) {
+
 		encVal = Robot.sensors.liftEncoder(false);
-		setSetpoint(0);
-		
+		// setSetpoint(0);
+
+		if (Robot.sensors.liftLimitLow()) {
+			Robot.sensors.liftEncoder(true); // Reset to zero at bottom
+		}
+
 		double inputSpeed = lT - rT;
 		if (rB)
 			runWheels(-1);
@@ -80,59 +87,86 @@ public class SS_Lift extends PIDSubsystem {
 
 		if (manual)
 			Lift(inputSpeed);
-		else
-			Lift(0);
-		
+
+
+		boolean up = DPad == 0;
+		boolean right = DPad == 90;
+		boolean down = DPad == 180;
+		boolean left = DPad == 270;
+
+		SmartDashboard.putNumber("DPad", DPad);
 		if (up && !debounce) {
 			increment();
 			System.out.println("INCREMENT");
 		} else if (down && !debounce) {
 			decrement();
 			System.out.println("DECREMENT");
+		} else if (right && !debounce) {
+			liftPos = 4;
+			liftTo(4);
+		} else if (left && !debounce) {
+			liftPos = 0;
+			liftTo(0);
 		}
 
 		debounce = up || down;
-		
+
 		System.out.println("ENC: " + encVal);
 		Robot.sensors.liftEncoder(false);
 		Robot.sensors.cubeIntake();
 		
+		if (getPIDController().isEnabled()) {
+			if (getSetpoint() <= encVal) {
+				//Going up
+				getPIDController().setPID(0.002, 0.0, 0.001);
+			} else {
+				//Going down
+				getPIDController().setPID(0.001, 0.0, 0.001);
+			}
+		}
+
 	}
 
 	public void Lift(double speed) {
-		
 
 		boolean liftLimitHigh = Robot.sensors.liftLimitHigh();
 		boolean liftLimitLow = Robot.sensors.liftLimitLow();
 		
+<<<<<<< HEAD
 		if (speed == 0){
 			lift1.set(0);
 			lift2.set(0);
+=======
+		if (Robot.bypassLimits) {
+			liftLimitHigh = false;
+			liftLimitLow = false;
+>>>>>>> refs/remotes/origin/master
 		}
 
-		if (speed < 0 && !liftLimitHigh){
-			lift1.set(speed * 0.8);
-			lift2.set(speed * 0.8);	
-		} else if (speed < 0){
+		if (speed == 0) {
 			lift1.set(0);
 			lift2.set(0);
 		}
-		
-		if (speed > 0 && !liftLimitLow){
+
+		if (speed < 0 && !liftLimitHigh) {
+			lift1.set(speed * 0.8);
+			lift2.set(speed * 0.8);
+		} else if (speed < 0) {
+			lift1.set(0);
+			lift2.set(0);
+		}
+
+		if (speed > 0 && !liftLimitLow) {
 			lift1.set(speed * 0.65);
 			lift2.set(speed * 0.65);
-		} else if (speed > 0){
+		} else if (speed > 0) {
 			lift1.set(0);
 			lift2.set(0);
 		}
 
-		//System.out.println("LOW " + liftLimitLow);
-		//System.out.println("HIGH " + liftLimitHigh);
-	
-		
 		SmartDashboard.putNumber("Lift Speed", speed);
 		SmartDashboard.putNumber("Lift Enc", encVal);
-		
+
 	}
 
 	public void increment() {
@@ -145,9 +179,9 @@ public class SS_Lift extends PIDSubsystem {
 			liftTo(--liftPos);
 		}
 	}
-	
+
 	public void liftTo(int index) {
-		
+		SmartDashboard.putNumber("Index", index);
 		switch (index) {
 		case 0:
 			setSetpoint(RobotMap.liftSetPointFloor);
@@ -175,9 +209,9 @@ public class SS_Lift extends PIDSubsystem {
 	}
 
 	protected void usePIDOutput(double output) {
-		//lift1.set(output);
-		//lift2.set(output);
-		System.out.println("PID " + output);
-		System.out.println("Setpoint " + getSetpoint());
+		Lift(output);
+		Lift(output);
+		SmartDashboard.putNumber("PID ", output);
+		SmartDashboard.putNumber("Setpoint", getSetpoint());
 	}
 }

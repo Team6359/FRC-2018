@@ -1,9 +1,16 @@
 
 package org.usfirst.frc.team6359.robot;
 
-import org.usfirst.frc.team6359.robot.commands.*;
-import org.usfirst.frc.team6359.robot.subsystems.*;
+import org.usfirst.frc.team6359.robot.commands.CMD_IntakeClose;
+import org.usfirst.frc.team6359.robot.commands.CrossLineAuto;
+import org.usfirst.frc.team6359.robot.subsystems.SS_DSOutput;
+import org.usfirst.frc.team6359.robot.subsystems.SS_DriveTrain;
+import org.usfirst.frc.team6359.robot.subsystems.SS_Hang;
+import org.usfirst.frc.team6359.robot.subsystems.SS_Intake;
+import org.usfirst.frc.team6359.robot.subsystems.SS_Lift;
+import org.usfirst.frc.team6359.robot.subsystems.SS_Sensors;
 
+import edu.wpi.first.wpilibj.CameraServer;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
@@ -34,6 +41,7 @@ public class Robot extends IterativeRobot {
 	Command autonomousCommand;
 	Command driveStraight;
 	public static Command intakeClose;
+	public static boolean bypassLimits = false;
 	SendableChooser<Command> chooser = new SendableChooser<>();
 	
 	public void robotInit() {
@@ -50,11 +58,13 @@ public class Robot extends IterativeRobot {
 		
 		
 		System.out.println("Robot Init");
+		CameraServer.getInstance().startAutomaticCapture();
 		
 		//chooser.addDefault("Default Auto", new ExampleCommand());
 		// chooser.addObject("My Auto", new MyAutoCommand());
 		chooser.addDefault("CrossLine Auto", new CrossLineAuto());
 		SmartDashboard.putData("Auto mode", chooser);
+	
 	}
 
 	

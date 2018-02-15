@@ -3,7 +3,6 @@ package org.usfirst.frc.team6359.robot.subsystems;
 import org.usfirst.frc.team6359.robot.RobotMap;
 
 import edu.wpi.first.wpilibj.ADXRS450_Gyro;
-import edu.wpi.first.wpilibj.AnalogInput;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.command.Subsystem;
@@ -14,11 +13,8 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  */
 public class SS_Sensors extends Subsystem {
 
-	// Put methods for controlling this subsystem
-	// here. Call these from Commands.
-
-	//Encoder encRight = new Encoder(RobotMap.rEncoder1, RobotMap.rEncoder2, true);
-	//Encoder encLeft = new Encoder(RobotMap.lEncoder1, RobotMap.lEncoder2, true);
+	Encoder encRight = new Encoder(RobotMap.rEncoder1, RobotMap.rEncoder2, true);
+	Encoder encLeft = new Encoder(RobotMap.lEncoder1, RobotMap.lEncoder2, true);
 	Encoder encLift;
 	DigitalInput limitSwitchHigh;
 	DigitalInput limitSwitchLow;
@@ -26,40 +22,51 @@ public class SS_Sensors extends Subsystem {
 	ADXRS450_Gyro gyro = new ADXRS450_Gyro();
 
 	public SS_Sensors() {
+<<<<<<< HEAD
 		encLift  = new Encoder(0, 1, false, Encoder.EncodingType.k4X);
 		limitSwitchHigh = new DigitalInput(RobotMap.liftLimitHigh);
 		limitSwitchLow = new DigitalInput(RobotMap.liftLimitLow);
 		cubeIntake = new DigitalInput(4);
+=======
+		encLift  = new Encoder(RobotMap.liftEncoder1, RobotMap.liftEncoder2, false, Encoder.EncodingType.k4X);
+		limitSwitchHigh = new DigitalInput(2);
+		limitSwitchLow = new DigitalInput(3);
+		cubeIntake = new DigitalInput(3);
+		encRight.setReverseDirection(true);
+		encLeft.setReverseDirection(false);
+>>>>>>> refs/remotes/origin/master
 	}
-//	public double rightEncoder(boolean reset) {
-//		if (reset) {
-//			encRight.reset();
-//		}
-//		return encRight.getRaw();
-//	}
-//
-//	public double leftEncoder(boolean reset) {
-//		if (reset) {
-//			encLeft.reset();
-//		}
-//		return encLeft.getRaw();
-//	}
-//	
+	public double rightEncoder(boolean reset) {
+		if (reset) {
+			encRight.reset();
+		}
+		SmartDashboard.putNumber("Right Encoder", encRight.getRaw());
+		return encRight.getRaw();
+	}
+
+	public double leftEncoder(boolean reset) {
+		if (reset) {
+			encLeft.reset();
+		}
+		SmartDashboard.putNumber("Left Encoder", encLeft.getRaw());
+		return encLeft.getRaw();
+	}
+	
 	public double liftEncoder(boolean reset) {
 		if (reset) {
 			encLift.reset();
 		}
-		System.out.println("ENC: " + encLift.getRaw());
+		SmartDashboard.putNumber("Lift Encoder", encLift.getRaw());
 		return encLift.getRaw();
 	}
 
 	public boolean liftLimitHigh() {
-		System.out.println("LIMIT SWITCH HIGH: " + !limitSwitchHigh.get());
+		SmartDashboard.putBoolean("Limit Switch High", !limitSwitchHigh.get());
 		return !limitSwitchHigh.get();
 	}
 	
 	public boolean liftLimitLow() {
-	//	System.out.println("LIMIT SWITCH LOW: " + limitSwitchLow.get());
+		SmartDashboard.putBoolean("Limit Switch Low", !limitSwitchLow.get());
 		return !limitSwitchLow.get();
 	}
 	public double gyro(boolean reset) {
@@ -70,12 +77,11 @@ public class SS_Sensors extends Subsystem {
 	}
 	
 	public boolean cubeIntake() {
-		System.out.println("CUBE INTAKE LIMIT  "+ !cubeIntake.get());
+		SmartDashboard.putBoolean("Cube Intake Switch", !cubeIntake.get());
 		return !cubeIntake.get();
 	}
 
 	public void initDefaultCommand() {
-		// Set the default command for a subsystem here.
-		// setDefaultCommand(new MySpecialCommand());
+
 	}
 }
