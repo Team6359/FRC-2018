@@ -31,8 +31,8 @@ public class SS_DriveTrain extends Subsystem {
 	double lEncoder;
 	double rEncoder;
 	
-	double curSpeedLeft;
-	double curSpeedRight;
+	double curSpeedLeft = 0;
+	double curSpeedRight = 0;
 
 	
 	public SS_DriveTrain() {
@@ -114,6 +114,7 @@ public class SS_DriveTrain extends Subsystem {
 
 		// sends power numbers to Drive method
 		Drive(leftSpeed, rightSpeed, -strafeSpeed);
+		
 		Robot.sensors.leftEncoder(false);
 		Robot.sensors.rightEncoder(false);
 	}
@@ -133,7 +134,7 @@ public class SS_DriveTrain extends Subsystem {
 		SmartDashboard.putNumber("Drive Left Speed", leftSpeed);
 		SmartDashboard.putNumber("Drive Right Speed", rightSpeed);
 		SmartDashboard.putNumber("Drive Strafe Speed", strafe);
-		
+		SmartDashboard.putNumber("curSpeedRight", curSpeedRight);
 
 	}
 

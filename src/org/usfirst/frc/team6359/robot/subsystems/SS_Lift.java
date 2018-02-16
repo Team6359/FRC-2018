@@ -45,12 +45,13 @@ public class SS_Lift extends PIDSubsystem {
 
 	}
 
-	public void runWheels(double speed) {
-		if (speed < 0 && !Robot.sensors.cubeIntake()) {
-			speed = 0;
+	public void runWheels(double speedLeft, double speedRight) {
+		if ((speedLeft != 0 || speedRight != 0) && !Robot.sensors.cubeIntake()) {
+			speedLeft = 0;
+			speedRight = 0;
 		}
-		leftWheelMotor.set(speed);
-		rightWheelMotor.set(speed);
+		leftWheelMotor.set(speedLeft);
+		rightWheelMotor.set(speedRight);
 
 	}
 
@@ -59,7 +60,8 @@ public class SS_Lift extends PIDSubsystem {
 		// setDefaultCommand(new MySpecialCommand());
 	}
 
-	public void Control(double lT, double rT, boolean lB, boolean rB, int DPad, boolean a) {
+	public void Control(double lT, double rT, boolean lB, boolean rB, int DPad, boolean a, boolean back,
+			boolean start) {
 
 		encVal = Robot.sensors.liftEncoder(false);
 		// setSetpoint(0);
@@ -70,11 +72,17 @@ public class SS_Lift extends PIDSubsystem {
 
 		double inputSpeed = lT - rT;
 		if (rB)
-			runWheels(-1);
+			runWheels(1, 1);
 		else if (lB)
-			runWheels(1);
+			runWheels(-1, -1);
 		else
-			runWheels(0);
+			runWheels(0, 0);
+
+		if (back)
+			runWheels(1, -0.5);
+		
+		if (start)
+			runWheels(-0.5, 1);
 
 		if (Math.abs(inputSpeed) <= triggerTolerance) {
 			enable();
@@ -88,7 +96,6 @@ public class SS_Lift extends PIDSubsystem {
 
 		if (manual)
 			Lift(inputSpeed);
-
 
 		boolean up = DPad == 0;
 		boolean right = DPad == 90;
@@ -115,13 +122,13 @@ public class SS_Lift extends PIDSubsystem {
 		System.out.println("ENC: " + encVal);
 		Robot.sensors.liftEncoder(false);
 		Robot.sensors.cubeIntake();
-		
+
 		if (getPIDController().isEnabled()) {
 			if (getSetpoint() <= encVal) {
-				//Going up
-				getPIDController().setPID(0.002, 0.0, 0.001);
+				// Going up
+				getPIDController().setPID(0.002, 0.0, 0.000);
 			} else {
-				//Going down
+				// Going down
 				getPIDController().setPID(0.001, 0.0, 0.001);
 			}
 		}
@@ -132,7 +139,7 @@ public class SS_Lift extends PIDSubsystem {
 
 		boolean liftLimitHigh = Robot.sensors.liftLimitHigh();
 		boolean liftLimitLow = Robot.sensors.liftLimitLow();
-		
+
 		if (Robot.bypassLimits) {
 			liftLimitHigh = false;
 			liftLimitLow = false;

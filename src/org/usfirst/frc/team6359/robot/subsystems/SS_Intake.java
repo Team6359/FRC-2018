@@ -33,7 +33,7 @@ public class SS_Intake extends Subsystem {
 
 	}
 	
-	public void Control(boolean rB){
+	public void Control(boolean rB, boolean back, boolean start){
 //		if(rB){
 //			Set_Position(1);
 //			intakeLeft.set(1);
@@ -47,12 +47,26 @@ public class SS_Intake extends Subsystem {
 		this.rB = rB;
 		//System.out.println("RB" + rB);
 		
-		if ((rB && Robot.sensors.liftLimitLow()) || (rB && Robot.bypassLimits)){
+		if (rB){
 			intakeClose();
-			intakeWheels(0.3);
-		}else if (!rB){
+			intakeWheels(0.3, 0.3);
+		}else if (!rB && !back && !start){
 			intakeOpen();
-			intakeWheels(0);
+			intakeWheels(0, 0);
+		}
+		
+		if (back){
+			//intakeClose();
+			intakeWheels(0.2, -0);
+		}else if (!rB && !start){
+			//intakeOpen();
+		}
+		
+		if (start){
+			//intakeClose();
+			intakeWheels(-0, 0.2);
+		}else if (!rB && !back){
+			//intakeOpen();
 		}
 		
 	}
@@ -85,10 +99,11 @@ public class SS_Intake extends Subsystem {
 	public void initDefaultCommand() {
 	}
 
-	public void intakeWheels(double speed) {
-		intakeLeft.set(speed);
-		intakeRight.set(speed);
-		SmartDashboard.putNumber("Intake Speed", speed);
+	public void intakeWheels(double speedLeft, double speedRight) {
+		intakeLeft.set(speedLeft);
+		intakeRight.set(speedRight);
+		SmartDashboard.putNumber("Intake Speed Left", speedLeft);
+		SmartDashboard.putNumber("Intake Speed Right", speedRight);
 	}
 	
 }

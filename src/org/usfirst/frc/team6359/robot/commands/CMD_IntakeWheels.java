@@ -25,7 +25,7 @@ public class CMD_IntakeWheels extends Command {
     	if (!rB)
     		finished = true;
     	
-    	Robot.intake.intakeWheels(1);
+    	//Robot.intake.intakeWheels(1);
     }
 
     // Make this return true when this Command no longer needs to run execute()
@@ -35,7 +35,7 @@ public class CMD_IntakeWheels extends Command {
 
     // Called once after isFinished returns true
     protected void end() {
-    	Robot.intake.intakeWheels(0);
+    //	Robot.intake.intakeWheels(0);
     	new CMD_IntakeOpen();
     }
 

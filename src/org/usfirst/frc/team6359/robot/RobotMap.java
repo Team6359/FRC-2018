@@ -63,8 +63,8 @@ public class RobotMap {
 	public static final int rEncoder2 = 7;
 	public static final int lEncoder1 = 8;
 	public static final int lEncoder2 = 9;
-	public static final int liftEncoder1 = 0;
-	public static final int liftEncoder2 = 1;
+	public static final int liftEncoder1 = 1;
+	public static final int liftEncoder2 = 0;
 	public static final int liftLimitHigh = 2;
 	public static final int liftLimitLow = 3;
 	
@@ -73,9 +73,9 @@ public class RobotMap {
 	public static double cpiLift = (3811.0 / 2) / 3.141;
 	// Inches * cpiLift
 	public static double liftSetPointFloor = 0;
-	public static double liftSetPointDrive = -2 * cpiLift;
-	public static double liftSetPointSwitch = -24 * cpiLift;
-	public static double liftSetPointScaleLow = -60 * cpiLift;
-	public static double liftSetPointScaleNeutral = -70 * cpiLift;
+	public static double liftSetPointDrive = -4 * cpiLift;
+	public static double liftSetPointSwitch = -26 * cpiLift;
+	public static double liftSetPointScaleLow = -62 * cpiLift;
+	public static double liftSetPointScaleNeutral = -72 * cpiLift;
 	public static double liftSetPointScaleHigh = -84 * cpiLift;
 }
