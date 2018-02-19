@@ -3,6 +3,7 @@ package org.usfirst.frc.team6359.robot.commands;
 import org.usfirst.frc.team6359.robot.Robot;
 
 import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  *
@@ -15,8 +16,7 @@ public class CMD_DriveStraight extends Command{
 	
 
 	public CMD_DriveStraight(double Distance, double Speed) {
-
-		cpi = 330/12;
+		cpi = 522/ 18.846;
 		_distance = Distance * cpi;
 		spd = Speed;
 	}
@@ -25,12 +25,12 @@ public class CMD_DriveStraight extends Command{
 	protected void initialize() {
 		//Robot.sensors.rightEncoder(true);
 		//Robot.sensors.leftEncoder(true);
-
 		finish = false;
 	}
 
 	// Called repeatedly when this Command is scheduled to run
 	protected void execute() {
+	
 		double lEncoder = Robot.sensors.leftEncoder(false);
 		double rEncoder = Robot.sensors.rightEncoder(false);
 
@@ -58,6 +58,7 @@ public class CMD_DriveStraight extends Command{
 				finish = true;
 			}
 		}
+		SmartDashboard.putNumber("Auto dist", _distance);
 	}
 
 	// Make this return true when this Command no longer needs to run execute()

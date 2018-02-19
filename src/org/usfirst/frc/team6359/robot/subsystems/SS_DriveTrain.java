@@ -78,16 +78,16 @@ public class SS_DriveTrain extends Subsystem {
 		error = 0;
 		leftSpeed = (y + x) + error;
 		rightSpeed = (y - x) - error;
-		
-		if ((leftSpeed > curSpeedLeft && leftSpeed > 0)){
+		//curLeftSpeed = 0, leftSpeed = -1
+		if ((leftSpeed > curSpeedLeft && leftSpeed >= 0)){
 			curSpeedLeft += leftSpeed / 75;
-		} else if ((leftSpeed < curSpeedLeft && leftSpeed < 0)){
+		} else if ((leftSpeed < curSpeedLeft && leftSpeed <= 0)){
 			curSpeedLeft -= leftSpeed / 75;
 		}
 	
-		if ((rightSpeed > curSpeedRight && rightSpeed > 0)){
+		if ((rightSpeed > curSpeedRight && rightSpeed >= 0)){
 			curSpeedRight += rightSpeed / 75;
-		} else if ((rightSpeed < curSpeedRight && rightSpeed < 0)){
+		} else if ((rightSpeed < curSpeedRight && rightSpeed <= 0)){
 			curSpeedRight -= rightSpeed / 75;
 		}
 		

@@ -21,8 +21,6 @@ public class SS_Hang extends Subsystem {
     public void Control(boolean x, boolean y){
     	if (y)
     		Hang(-1);
-    	else if (x)
-    		Hang(1);
     	else
     		Hang(0);
     }

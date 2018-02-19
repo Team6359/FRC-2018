@@ -59,10 +59,10 @@ public class RobotMap {
 	// public static DigitalSource liftEncoder1;
 	// public static DigitalSource liftEncoder2;
 
-	public static final int rEncoder1 = 6;
-	public static final int rEncoder2 = 7;
-	public static final int lEncoder1 = 8;
-	public static final int lEncoder2 = 9;
+	public static final int rEncoder1 = 7;
+	public static final int rEncoder2 = 8;
+	public static final int lEncoder1 = 5;
+	public static final int lEncoder2 = 6;
 	public static final int liftEncoder1 = 1;
 	public static final int liftEncoder2 = 0;
 	public static final int liftLimitHigh = 2;

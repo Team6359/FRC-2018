@@ -62,6 +62,8 @@ public class SS_Lift extends PIDSubsystem {
 
 	public void Control(double lT, double rT, boolean lB, boolean rB, int DPad, boolean a, boolean back,
 			boolean start) {
+	//	Robot.bypassLimits = SmartDashboard.getBoolean("Limit Overide", false);
+		
 
 		encVal = Robot.sensors.liftEncoder(false);
 		// setSetpoint(0);
@@ -126,13 +128,17 @@ public class SS_Lift extends PIDSubsystem {
 		if (getPIDController().isEnabled()) {
 			if (getSetpoint() <= encVal) {
 				// Going up
-				getPIDController().setPID(0.002, 0.0, 0.000);
+				getPIDController().setPID(0.001, 0.0, 0.000);
 			} else {
 				// Going down
 				getPIDController().setPID(0.001, 0.0, 0.001);
 			}
 		}
 
+	}
+	
+	public void resetEnc() {
+		Robot.sensors.liftEncoder(true);
 	}
 
 	public void Lift(double speed) {

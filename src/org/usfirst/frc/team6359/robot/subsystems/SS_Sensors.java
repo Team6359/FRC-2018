@@ -25,7 +25,7 @@ public class SS_Sensors extends Subsystem {
 		encLift  = new Encoder(RobotMap.liftEncoder1, RobotMap.liftEncoder2, false, Encoder.EncodingType.k4X);
 		limitSwitchHigh = new DigitalInput(2);
 		limitSwitchLow = new DigitalInput(3);
-		//cubeIntake = new DigitalInput(3);
+		cubeIntake = new DigitalInput(4);
 		encRight.setReverseDirection(true);
 		encLeft.setReverseDirection(false);
 	}
@@ -70,8 +70,8 @@ public class SS_Sensors extends Subsystem {
 	}
 	
 	public boolean cubeIntake() {
-		//SmartDashboard.putBoolean("Cube Intake Switch", !cubeIntake.get());
-		return true;
+		SmartDashboard.putBoolean("Cube Intake Switch", !cubeIntake.get());
+		return !cubeIntake.get();
 	}
 
 	public void initDefaultCommand() {

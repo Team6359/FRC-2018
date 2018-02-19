@@ -1,6 +1,5 @@
 package org.usfirst.frc.team6359.robot.subsystems;
 
-import org.usfirst.frc.team6359.robot.Robot;
 import org.usfirst.frc.team6359.robot.RobotMap;
 
 import edu.wpi.first.wpilibj.Solenoid;
