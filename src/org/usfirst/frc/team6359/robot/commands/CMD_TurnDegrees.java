@@ -1,55 +1,59 @@
 package org.usfirst.frc.team6359.robot.commands;
 
 import org.usfirst.frc.team6359.robot.Robot;
+import org.usfirst.frc.team6359.robot.subsystems.DummyPIDOutput;
 
+import edu.wpi.first.wpilibj.PIDController;
+import edu.wpi.first.wpilibj.PIDSource;
 import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  *
  */
 public class CMD_TurnDegrees extends Command {
-	private boolean finish;
-	private double degs, count, spd;
+	
+	private PIDSource source;
+	PIDController turnController;
+	private double degrees;
+	private DummyPIDOutput output;
+	private double readableOutput;
+	
+	boolean finished = false;
 
-	public CMD_TurnDegrees(double degrees, double speed) {
+	public CMD_TurnDegrees(double degrees) {
+		requires(Robot.sensors);
 		requires(Robot.driveTrain);
-
-		spd = speed;
-		degs = degrees;
+		turnController = new PIDController(1, 0, 0, source, output);
+		this.degrees = degrees;
 	}
 
-	// Called just before this Command runs the first time
+	public CMD_TurnDegrees(double degrees, double scale) {
+		requires(Robot.sensors);
+		requires(Robot.driveTrain);
+		turnController = new PIDController(1, 0, 0, source, output);
+	}
+
 	protected void initialize() {
-		//Robot.sensors.gyro(true);
+		source = Robot.sensors.gyro;
+		Robot.sensors.gyro.reset();
+		turnController.setSetpoint(degrees);
+		turnController.setAbsoluteTolerance(5);
+		turnController.setOutputRange(-1, 1);
+		turnController.enable();
 	}
 
-	// Called repeatedly when this Command is scheduled to run
 	protected void execute() {
-		//count = Robot.sensors.gyro(false);
-
-		if (degs > 0) {
-			if (degs > count) {
-				Robot.driveTrain.Drive(spd, -spd, 0);
-			} else {
-				Robot.driveTrain.Drive(0, 0, 0);
-				finish = true;
-			}
-		} else {
-			if (degs < count) {
-				Robot.driveTrain.Drive(-spd, spd, 0);
-
-			}
-			else{
-				Robot.driveTrain.Drive(0, 0, 0);
-				finish = true;
-			}
-		}
-
+		readableOutput = output.getOutput();
+		Robot.driveTrain.Drive(readableOutput, -readableOutput, 0);
+		finished = turnController.onTarget();
+		SmartDashboard.putNumber("LeftSpeedPID", readableOutput);
+		SmartDashboard.putNumber("RightSpeedPID", -readableOutput);
 	}
 
 	// Make this return true when this Command no longer needs to run execute()
 	protected boolean isFinished() {
-		return finish;
+		return false;
 	}
 
 	// Called once after isFinished returns true

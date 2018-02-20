@@ -19,7 +19,7 @@ public class SS_Sensors extends Subsystem {
 	DigitalInput limitSwitchHigh;
 	DigitalInput limitSwitchLow;
 	DigitalInput cubeIntake;
-	ADXRS450_Gyro gyro = new ADXRS450_Gyro();
+	public ADXRS450_Gyro gyro = new ADXRS450_Gyro();
 
 	public SS_Sensors() {
 		encLift  = new Encoder(RobotMap.liftEncoder1, RobotMap.liftEncoder2, false, Encoder.EncodingType.k4X);
