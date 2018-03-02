@@ -33,6 +33,8 @@ public class SS_DriveTrain extends Subsystem {
 	
 	double curSpeedLeft = 0;
 	double curSpeedRight = 0;
+	
+	public boolean autoRunning = false;
 
 	
 	public SS_DriveTrain() {
@@ -113,15 +115,18 @@ public class SS_DriveTrain extends Subsystem {
 		//System.out.println("Strafe Speed: " + strafeSpeed);
 
 		// sends power numbers to Drive method
-		//Drive(leftSpeed, rightSpeed, -strafeSpeed);
-		Drive(0, 0, 0);
-		
+		//if (!autoRunning)
+			Drive(leftSpeed, rightSpeed, -strafeSpeed);
+		//Drive(0, 0, 0);
+		System.out.println(autoRunning);
 		Robot.sensors.leftEncoder(false);
 		Robot.sensors.rightEncoder(false);
 	}
 	
 	public void Drive(double leftSpeed, double rightSpeed, double strafe) {
-
+		
+		
+		
 		// VictorSPX
 		CL.set(ControlMode.PercentOutput, leftSpeed);
 		BL.set(ControlMode.PercentOutput, leftSpeed);

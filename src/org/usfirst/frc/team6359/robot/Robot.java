@@ -4,6 +4,7 @@ package org.usfirst.frc.team6359.robot;
 import org.usfirst.frc.team6359.robot.commands.CMD_IntakeClose;
 import org.usfirst.frc.team6359.robot.commands.CrossLineAuto;
 import org.usfirst.frc.team6359.robot.commands.ResetLiftAuto;
+import org.usfirst.frc.team6359.robot.commands.TestAuto;
 import org.usfirst.frc.team6359.robot.subsystems.SS_DSOutput;
 import org.usfirst.frc.team6359.robot.subsystems.SS_DriveTrain;
 import org.usfirst.frc.team6359.robot.subsystems.SS_Hang;
@@ -63,7 +64,7 @@ public class Robot extends IterativeRobot {
 		
 		//chooser.addDefault("Default Auto", new ExampleCommand());
 		// chooser.addObject("My Auto", new MyAutoCommand());
-		chooser.addDefault("Reset Lift Auto", new CrossLineAuto());
+		chooser.addDefault("Test Auto", new TestAuto());
 		SmartDashboard.putData("Auto mode", chooser);
 		
 	

@@ -15,10 +15,11 @@ public class CMD_LiftIncrement extends Command {
 
     protected void initialize() {
     	Robot.lift.increment();
+    	Robot.lift.enable();
     }
     
     protected boolean isFinished() {
-        return true;
+        return Robot.lift.onTarget();
     }
 
 }

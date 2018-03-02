@@ -13,8 +13,8 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  */
 public class SS_Sensors extends Subsystem {
 
-	Encoder encRight = new Encoder(RobotMap.rEncoder1, RobotMap.rEncoder2, true);
-	Encoder encLeft = new Encoder(RobotMap.lEncoder1, RobotMap.lEncoder2, true);
+	public Encoder encRight = new Encoder(RobotMap.rEncoder1, RobotMap.rEncoder2, true);
+	public Encoder encLeft = new Encoder(RobotMap.lEncoder1, RobotMap.lEncoder2, true);
 	Encoder encLift;
 	DigitalInput limitSwitchHigh;
 	DigitalInput limitSwitchLow;
@@ -28,6 +28,8 @@ public class SS_Sensors extends Subsystem {
 		cubeIntake = new DigitalInput(4);
 		encRight.setReverseDirection(true);
 		encLeft.setReverseDirection(false);
+		encLeft.reset();
+		encRight.reset();
 	}
 	public double rightEncoder(boolean reset) {
 		if (reset) {

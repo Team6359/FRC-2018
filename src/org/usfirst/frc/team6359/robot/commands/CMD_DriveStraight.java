@@ -32,7 +32,7 @@ public class CMD_DriveStraight extends Command{
 	protected void execute() {
 	
 		double lEncoder = Robot.sensors.leftEncoder(false);
-		double rEncoder = Robot.sensors.rightEncoder(false);
+		double rEncoder = -Robot.sensors.rightEncoder(false);
 
 		double turn = lEncoder - rEncoder;
 		turn *= .005;

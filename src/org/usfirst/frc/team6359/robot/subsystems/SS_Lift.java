@@ -5,7 +5,6 @@ import org.usfirst.frc.team6359.robot.RobotMap;
 
 import edu.wpi.first.wpilibj.Spark;
 import edu.wpi.first.wpilibj.SpeedController;
-import edu.wpi.first.wpilibj.Victor;
 import edu.wpi.first.wpilibj.command.PIDSubsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
@@ -18,9 +17,10 @@ public class SS_Lift extends PIDSubsystem {
 
 	boolean manual = false;
 
-	double triggerTolerance = 0.1;
+	double triggerTolerance = 0.5;
+	public double autoScale = 1;
 
-	public static int liftPos = 0; // Start in drive position
+	public int liftPos = 0; // Start in drive position
 
 	boolean debounce = false;
 
@@ -29,8 +29,8 @@ public class SS_Lift extends PIDSubsystem {
 		super("Lift", 0.002, 0.0, 0.0001);
 		setAbsoluteTolerance(tolerance);
 		setOutputRange(-1, 1);
-		leftWheelMotor = new Victor(RobotMap.liftWheelLeft);
-		rightWheelMotor = new Victor(RobotMap.liftWheelRight);
+		leftWheelMotor = new Spark(RobotMap.liftWheelLeft);
+		rightWheelMotor = new Spark(RobotMap.liftWheelRight);
 		lift1 = new Spark(RobotMap.liftMotor1);
 		lift2 = new Spark(RobotMap.liftMotor2);
 
@@ -46,10 +46,10 @@ public class SS_Lift extends PIDSubsystem {
 	}
 
 	public void runWheels(double speedLeft, double speedRight) {
-		if ((speedLeft != 0 || speedRight != 0) && !Robot.sensors.cubeIntake()) {
-			speedLeft = 0;
-			speedRight = 0;
-		}
+//		if ((speedLeft > 0 || speedRight > 0) && !Robot.sensors.cubeIntake()) {
+//			speedLeft = 0;
+//			speedRight = 0;
+//		}
 		leftWheelMotor.set(speedLeft);
 		rightWheelMotor.set(speedRight);
 
@@ -65,11 +65,16 @@ public class SS_Lift extends PIDSubsystem {
 	//	Robot.bypassLimits = SmartDashboard.getBoolean("Limit Overide", false);
 		
 
-		encVal = Robot.sensors.liftEncoder(false);
+		
 		// setSetpoint(0);
 
 		if (Robot.sensors.liftLimitLow()) {
 			Robot.sensors.liftEncoder(true); // Reset to zero at bottom
+			setSetpoint(0);
+			liftPos = 0;
+			disable();
+		}else {
+			enable();
 		}
 
 		double inputSpeed = lT - rT;
@@ -125,15 +130,7 @@ public class SS_Lift extends PIDSubsystem {
 		Robot.sensors.liftEncoder(false);
 		Robot.sensors.cubeIntake();
 
-		if (getPIDController().isEnabled()) {
-			if (getSetpoint() <= encVal) {
-				// Going up
-				getPIDController().setPID(0.001, 0.0, 0.000);
-			} else {
-				// Going down
-				getPIDController().setPID(0.001, 0.0, 0.001);
-			}
-		}
+		
 
 	}
 	
@@ -145,7 +142,7 @@ public class SS_Lift extends PIDSubsystem {
 
 		boolean liftLimitHigh = Robot.sensors.liftLimitHigh();
 		boolean liftLimitLow = Robot.sensors.liftLimitLow();
-
+		encVal = Robot.sensors.liftEncoder(false);
 		if (Robot.bypassLimits) {
 			liftLimitHigh = false;
 			liftLimitLow = false;
@@ -172,6 +169,16 @@ public class SS_Lift extends PIDSubsystem {
 			lift2.set(0);
 		}
 
+		if (getPIDController().isEnabled()) {
+			if (getSetpoint() <= encVal) {
+				// Going up
+				getPIDController().setPID(0.001, 0.0, 0.000);
+			} else {
+				// Going down
+				getPIDController().setPID(0.001, 0.0, 0.001);
+			}
+		}
+		
 		SmartDashboard.putNumber("Lift Speed", speed);
 		SmartDashboard.putNumber("Lift Enc", encVal);
 
@@ -217,8 +224,8 @@ public class SS_Lift extends PIDSubsystem {
 	}
 
 	protected void usePIDOutput(double output) {
-		Lift(output);
-		Lift(output);
+		Lift(output * autoScale);
+		Lift(output * autoScale);
 		SmartDashboard.putNumber("PID ", output);
 		SmartDashboard.putNumber("Setpoint", getSetpoint());
 	}

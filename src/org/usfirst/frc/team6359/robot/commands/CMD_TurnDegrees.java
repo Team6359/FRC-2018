@@ -24,36 +24,32 @@ public class CMD_TurnDegrees extends Command {
 	public CMD_TurnDegrees(double degrees) {
 		requires(Robot.sensors);
 		requires(Robot.driveTrain);
-		turnController = new PIDController(1, 0, 0, source, output);
+		source = Robot.sensors.gyro;
+		output = new DummyPIDOutput();
+		turnController = new PIDController(0.008, 0, 0, source, output); // Carpet - 0.02, 0, 0.053
 		this.degrees = degrees;
 	}
-
-	public CMD_TurnDegrees(double degrees, double scale) {
-		requires(Robot.sensors);
-		requires(Robot.driveTrain);
-		turnController = new PIDController(1, 0, 0, source, output);
-	}
-
 	protected void initialize() {
-		source = Robot.sensors.gyro;
 		Robot.sensors.gyro.reset();
 		turnController.setSetpoint(degrees);
-		turnController.setAbsoluteTolerance(5);
+		turnController.setAbsoluteTolerance(1);
 		turnController.setOutputRange(-1, 1);
 		turnController.enable();
 	}
 
 	protected void execute() {
 		readableOutput = output.getOutput();
-		Robot.driveTrain.Drive(readableOutput, -readableOutput, 0);
+		Robot.driveTrain.Drive(-readableOutput * 0.5, readableOutput * 0.5, 0);
 		finished = turnController.onTarget();
+		SmartDashboard.putNumber("Setpoint", turnController.getSetpoint());
+		SmartDashboard.putNumber("Gyro", Robot.sensors.gyro(false));
 		SmartDashboard.putNumber("LeftSpeedPID", readableOutput);
 		SmartDashboard.putNumber("RightSpeedPID", -readableOutput);
 	}
 
 	// Make this return true when this Command no longer needs to run execute()
 	protected boolean isFinished() {
-		return false;
+		return finished;
 	}
 
 	// Called once after isFinished returns true

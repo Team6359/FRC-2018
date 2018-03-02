@@ -3,8 +3,8 @@ package org.usfirst.frc.team6359.robot.subsystems;
 import org.usfirst.frc.team6359.robot.RobotMap;
 
 import edu.wpi.first.wpilibj.Solenoid;
+import edu.wpi.first.wpilibj.Spark;
 import edu.wpi.first.wpilibj.SpeedController;
-import edu.wpi.first.wpilibj.Victor;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
@@ -24,8 +24,8 @@ public class SS_Intake extends Subsystem {
 		solenoidLeft = new Solenoid(1);
 		solenoidRight = new Solenoid(0);
 
-		intakeLeft = new Victor(RobotMap.intakeLeft);
-		intakeRight = new Victor(RobotMap.intakeRight);
+		intakeLeft = new Spark(RobotMap.intakeLeft);
+		intakeRight = new Spark(RobotMap.intakeRight);
 		
 		intakeRight.setInverted(false);
 		intakeLeft.setInverted(false);
