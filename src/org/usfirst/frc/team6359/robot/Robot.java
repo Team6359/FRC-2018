@@ -39,6 +39,7 @@ public class Robot extends IterativeRobot {
 	public static SS_Intake intake;
 	public static SS_Lift lift;
 	public static SS_Hang hang;
+	public static final double LENGTH = 60;
 
 	Command autonomousCommand;
 	Command driveStraight;
