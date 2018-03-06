@@ -7,9 +7,9 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
 /**
  *
  */
-public class CenterToLeftSwtichAuto extends CommandGroup {
+public class CenterToLeftSwitchAuto extends CommandGroup {
 
-	public CenterToLeftSwtichAuto() {
+	public CenterToLeftSwitchAuto() {
 		addSequential(new CMD_LiftReset()); // Reset 0 lift
 		addSequential(new CMD_LiftIncrement()); // Move lift up to drive position
 		addSequential(new CMD_DriveForward(Robot.LENGTH)); // Move away from wall
