@@ -78,7 +78,7 @@ public class SS_Lift extends PIDSubsystem {
 		}
 
 		double inputSpeed = lT - rT;
-		if (rB)
+		if (rB || (lB && rB))
 			runWheels(1, 1);
 		else if (lB)
 			runWheels(-1, -1);

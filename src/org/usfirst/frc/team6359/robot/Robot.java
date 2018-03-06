@@ -62,6 +62,7 @@ public class Robot extends IterativeRobot {
 		
 		System.out.println("Robot Init");
 		CameraServer.getInstance().startAutomaticCapture();
+		CameraServer.getInstance().startAutomaticCapture();
 		
 		//chooser.addDefault("Default Auto", new ExampleCommand());
 		// chooser.addObject("My Auto", new MyAutoCommand());
