@@ -19,11 +19,11 @@ public class SS_Intake extends Subsystem {
 	private static SpeedController intakeLeft;
 	private static SpeedController intakeRight;
 	
-	private boolean rB, outtake = false, debounce = false;
+	private boolean rB, outtake = false, debounce = false, xDebounce = false, flippersOut = false;
 
 	public SS_Intake() {
 		solenoidLeft = new Solenoid(1);
-		solenoidRight = new Solenoid(0);
+		solenoidRight = new Solenoid(2);
 
 		intakeLeft = new Spark(RobotMap.intakeLeft);
 		intakeRight = new Spark(RobotMap.intakeRight);
@@ -33,7 +33,7 @@ public class SS_Intake extends Subsystem {
 
 	}
 
-	public void Control(boolean rB, boolean back, boolean start, boolean lB, boolean a) {
+	public void Control(boolean rB, boolean back, boolean start, boolean lB, boolean a, boolean x) {
 		// if(rB){
 		// Set_Position(1);
 		// intakeLeft.set(1);
@@ -54,7 +54,8 @@ public class SS_Intake extends Subsystem {
 			else
 				intakeWheels(-0.6, -0.6);
 		} else if (!rB && !back && !start && !lB) {
-			intakeOpen();
+			if (!flippersOut)
+				intakeOpen();
 			intakeWheels(0, 0);
 		}
 		
@@ -72,10 +73,26 @@ public class SS_Intake extends Subsystem {
 		if (!a) {
 			debounce = false;
 		}
+		
+		if (x && !xDebounce) {
+			xDebounce = true;
+			flippersOut = !flippersOut;
+		}
+	
+		if (!x)
+			xDebounce = false;
+		
+		if (flippersOut) {
+			intakeClose();
+		}
 			
 		if (outtake && lB && !rB) {
 			intakeClose();
-			intakeWheels(0.3, 0.3);
+			intakeWheels(0.4, 0.4);
+		}
+		
+		if (lB) {
+			intakeWheels(0.4, 0.4);
 		}
 
 		if (back) {
@@ -87,9 +104,10 @@ public class SS_Intake extends Subsystem {
 
 		if (start) {
 			// intakeClose();
-			intakeWheels(-0, 0.2);
-		} else if (!rB && !back) {
+			intakeWheels(0.2, -0.2);
+		} else if (back) {
 			// intakeOpen();
+			intakeWheels(-0.2, 0.2);
 		}
 
 	}

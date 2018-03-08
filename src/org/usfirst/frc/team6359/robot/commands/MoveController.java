@@ -52,7 +52,7 @@ public class MoveController extends Command {
 		down = OI.controller1.getRawButton(9);
 
 		Robot.driveTrain.ControllerDrive(lX, lY, rX, rY);
-		Robot.intake.Control(rB, back, start, lB, a);
+		Robot.intake.Control(rB, back, start, lB, a, x);
 		Robot.lift.Control(lT, rT, lB, rB, DPad, a, back, start);
 		Robot.hang.Control(x, y);
 		
