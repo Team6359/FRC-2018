@@ -1,6 +1,7 @@
 package org.usfirst.frc.team6359.robot.commands;
 
-import edu.wpi.first.wpilibj.DriverStation;
+import org.usfirst.frc.team6359.robot.Robot;
+
 import edu.wpi.first.wpilibj.command.CommandGroup;
 
 /**
@@ -8,17 +9,11 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
  */
 public class RightToScaleAuto extends CommandGroup {
 
-    public RightToScaleAuto() {
-    	String gameData;
-		gameData = DriverStation.getInstance().getGameSpecificMessage();
-		if (gameData.length() > 0) {
-			if (gameData.charAt(1) == 'L') {
-				// Left Switch
-				addSequential(new RightToLeftScaleAuto());
-			} else {
-				// Put right auto code here
-				addSequential(new RightToRightScaleAuto());
-			}
+	public RightToScaleAuto() {
+		if (Robot.scalePos == 'L') {
+			addSequential(new CrossLineAuto());
+		} else {
+			addSequential(new RightToRightScaleAuto());
 		}
-    }
+	}
 }

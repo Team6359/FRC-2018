@@ -21,6 +21,9 @@ public class CMD_DriveForward extends Command {
 	private double accelScale = 0.0;
 	private double maxScale = 0.5;
 	private double accelRate = 0.01; // 0.04
+	private double timeout = 0;
+	private double lastVal = 0;
+	private boolean finished = false;
 
 	public CMD_DriveForward(double dist) {
 		this.dist = dist * (700/96);
@@ -29,7 +32,7 @@ public class CMD_DriveForward extends Command {
 		Robot.sensors.encRight.setReverseDirection(true);
 		source = Robot.sensors.encRight;
 		output = new DummyPIDOutput();
-		driveController = new PIDController(0.001, 0.0005, 0, source, output); //Carpet - 0.003, 0, 0.0001
+		driveController = new PIDController(0.003, 0, 0.0002, source, output); //Carpet - 0.003, 0, 0.0001
 		accelScale = 0;
 	}
 
@@ -42,6 +45,7 @@ public class CMD_DriveForward extends Command {
 		driveController.setOutputRange(-1, 1);
 		driveController.enable();
 		Robot.sensors.gyro(true);
+		lastVal = Robot.sensors.encRight.getRaw();
 	}
 
 	// Called repeatedly when this Command is scheduled to run
@@ -55,11 +59,23 @@ public class CMD_DriveForward extends Command {
 		SmartDashboard.putNumber("Right Encoder", source.pidGet());
 		if (accelScale < maxScale)
 			accelScale += accelRate;
+		if (lastVal == readableOutput) {
+			timeout++;
+		} else {
+			timeout = 0;
+		}
+		
+		if (timeout > 20) {
+			finished = true;
+		}
+		if (driveController.onTarget()) {
+			finished = true;
+		}
 	}
 
 	// Make this return true when this Command no longer needs to run execute()
 	protected boolean isFinished() {
-		return driveController.onTarget();
+		return finished;
 	}
 
 	// Called once after isFinished returns true

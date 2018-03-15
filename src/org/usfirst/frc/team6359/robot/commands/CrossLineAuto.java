@@ -1,6 +1,8 @@
 package org.usfirst.frc.team6359.robot.commands;
 
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.command.CommandGroup;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  *
@@ -8,8 +10,10 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
 public class CrossLineAuto extends CommandGroup {
 
     public CrossLineAuto() {
-    	addSequential(new CMD_DriveStraight(24, 0.5));
-    	//addSequential(new CMD_TurnDegrees(360));
-    
+    	String gameData;
+		gameData = DriverStation.getInstance().getGameSpecificMessage();
+    	SmartDashboard.putString("Network table", gameData);
+    	addSequential(new CMD_DriveForward(196));    
+    	
     }
 }

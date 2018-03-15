@@ -23,10 +23,11 @@ public class SS_Lift extends PIDSubsystem {
 	public int liftPos = 0; // Start in drive position
 
 	boolean debounce = false;
+	boolean limitDebounce = false;
 
 	public SS_Lift() {
 
-		super("Lift", 0.002, 0.0, 0.0001);
+		super("Lift", 0.0013, 0.0, 0.00018);
 		setAbsoluteTolerance(tolerance);
 		setOutputRange(-1, 1);
 		leftWheelMotor = new Spark(RobotMap.liftWheelLeft);
@@ -68,13 +69,15 @@ public class SS_Lift extends PIDSubsystem {
 		
 		// setSetpoint(0);
 
-		if (Robot.sensors.liftLimitLow()) {
+		if (Robot.sensors.liftLimitLow() && !limitDebounce) {
 			Robot.sensors.liftEncoder(true); // Reset to zero at bottom
 			setSetpoint(0);
 			liftPos = 0;
 			disable();
+			limitDebounce = true;
 		}else {
 			enable();
+			limitDebounce = false;
 		}
 
 		double inputSpeed = lT - rT;
@@ -125,6 +128,7 @@ public class SS_Lift extends PIDSubsystem {
 		}
 
 		debounce = up || down;
+		
 
 		System.out.println("ENC: " + encVal);
 		Robot.sensors.liftEncoder(false);

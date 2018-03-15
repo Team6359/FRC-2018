@@ -18,6 +18,8 @@ public class CMD_TurnDegrees extends Command {
 	private double degrees;
 	private DummyPIDOutput output;
 	private double readableOutput;
+	private double timeout = 0;
+	private double lastVal = 0;
 	
 	boolean finished = false;
 
@@ -26,7 +28,7 @@ public class CMD_TurnDegrees extends Command {
 		requires(Robot.driveTrain);
 		source = Robot.sensors.gyro;
 		output = new DummyPIDOutput();
-		turnController = new PIDController(0.008, 0, 0, source, output); // Carpet - 0.02, 0, 0.053
+		turnController = new PIDController(0.02, 0, 0.053, source, output); // Carpet - 0.02, 0, 0.053
 		this.degrees = degrees;
 	}
 	protected void initialize() {
@@ -35,6 +37,7 @@ public class CMD_TurnDegrees extends Command {
 		turnController.setAbsoluteTolerance(1);
 		turnController.setOutputRange(-1, 1);
 		turnController.enable();
+		lastVal = Robot.sensors.gyro(false);
 	}
 
 	protected void execute() {
@@ -45,6 +48,16 @@ public class CMD_TurnDegrees extends Command {
 		SmartDashboard.putNumber("Gyro", Robot.sensors.gyro(false));
 		SmartDashboard.putNumber("LeftSpeedPID", readableOutput);
 		SmartDashboard.putNumber("RightSpeedPID", -readableOutput);
+		if (readableOutput == lastVal) {
+			timeout++;
+		}else {
+			timeout = 0;
+		}
+		lastVal = readableOutput;
+		
+		if (timeout > 20) {
+			finished = true;
+		}
 	}
 
 	// Make this return true when this Command no longer needs to run execute()

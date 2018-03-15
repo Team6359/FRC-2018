@@ -23,13 +23,13 @@ public class SS_Intake extends Subsystem {
 
 	public SS_Intake() {
 		solenoidLeft = new Solenoid(1);
-		solenoidRight = new Solenoid(2);
+		solenoidRight = new Solenoid(0);
 
 		intakeLeft = new Spark(RobotMap.intakeLeft);
 		intakeRight = new Spark(RobotMap.intakeRight);
 
-		intakeRight.setInverted(false);
-		intakeLeft.setInverted(false);
+		intakeRight.setInverted(true);
+		intakeLeft.setInverted(true);
 
 	}
 
