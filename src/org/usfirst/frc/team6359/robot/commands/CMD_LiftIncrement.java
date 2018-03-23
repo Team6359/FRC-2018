@@ -8,6 +8,8 @@ import edu.wpi.first.wpilibj.command.Command;
  *
  */
 public class CMD_LiftIncrement extends Command {
+	
+	double startTime = 0;
 
     public CMD_LiftIncrement() {
         requires(Robot.lift);
@@ -16,10 +18,12 @@ public class CMD_LiftIncrement extends Command {
     protected void initialize() {
     	Robot.lift.increment();
     	Robot.lift.enable();
+        startTime = System.currentTimeMillis();
+
     }
     
     protected boolean isFinished() {
-        return Robot.lift.onTarget();
+        return System.currentTimeMillis() - startTime > 3000;
     }
 
 }

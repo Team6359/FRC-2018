@@ -17,7 +17,6 @@ public class CMD_LiftOuttake extends Command {
     // Called just before this Command runs the first time
     protected void initialize() {
     	
-    	
     }
     protected void execute() {
     	if (timer < 50) {

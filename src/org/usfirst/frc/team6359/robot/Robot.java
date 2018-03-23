@@ -42,6 +42,7 @@ public class Robot extends IterativeRobot {
 	public static SS_Lift lift;
 	public static SS_Hang hang;
 	public static final double LENGTH = 34;
+	public static boolean autoIntake = false;
 
 	public static char switchPos;
 	public static char scalePos;
@@ -93,143 +94,145 @@ public class Robot extends IterativeRobot {
 		{
 			gameData = DriverStation.getInstance().getGameSpecificMessage();
 		}
+		if (gameData != null) {
+			switchPos = gameData.charAt(0);
+			scalePos = gameData.charAt(1);
 
-		switchPos = gameData.charAt(0);
-		scalePos = gameData.charAt(1);
+			int choice = chooser.getSelected();
+			
+			switch(choice) {
+			case 0:
+				autonomousCommand = new RightToRightScaleAuto();
+				break;
+			case 1:
+				if (switchPos == 'L') {
+					autonomousCommand = new LeftToLeftSwitchAuto();
+				} else {
+					autonomousCommand = new CrossLineAuto();
+				}
+				break;
+			case 2:
+				if (switchPos == 'R') {
+					autonomousCommand = new RightToRightSwitchAuto();
+				} else {
+					autonomousCommand = new CrossLineAuto();
+				}
+				break;
+			case 3:
+				if (switchPos == 'L') {
+					autonomousCommand = new CenterToLeftSwitchAuto();
+				} else if (switchPos == 'R') {
+					autonomousCommand = new CenterToRightSwitchAuto();
+				} else {
+					autonomousCommand = new CrossLineAuto();
+				}
+				break;
+			case 4:
+				if (scalePos == 'L') {
+					autonomousCommand = new LeftToLeftScaleAuto();
+				} else {
+					autonomousCommand = new CrossLineAuto();
+				}
+				break;
+			case 5:
+				if (scalePos == 'R') {
+					autonomousCommand = new RightToRightScaleAuto();
+				} else {
+					autonomousCommand = new CrossLineAuto();
+				}
+				break;
+			case 6:
+				if (switchPos == 'L') {
+					autonomousCommand = new LeftToLeftSwitchAuto();
+				} else if (scalePos == 'L') {
+					autonomousCommand = new LeftToLeftScaleAuto();
+				} else {
+					autonomousCommand = new CrossLineAuto();
+				}
+				break;
+			case 7:
+				if (switchPos == 'R') {
+					autonomousCommand = new RightToRightSwitchAuto();
+				} else if (scalePos == 'R') {
+					autonomousCommand = new RightToRightScaleAuto();
+				} else {
+					autonomousCommand = new CrossLineAuto();
+				}
+				break;
+			case 8:
+				if (scalePos == 'L') {
+					autonomousCommand = new LeftToLeftScaleAuto();
+				} else if (switchPos == 'L') {
+					autonomousCommand = new LeftToLeftSwitchAuto();
+				} else {
+					autonomousCommand = new CrossLineAuto();
+				}
+				break;
+			case 9:
+				if (scalePos == 'R') {
+					autonomousCommand = new RightToRightScaleAuto();
+				} else if (switchPos == 'R') {
+					autonomousCommand = new RightToRightSwitchAuto();
+				} else {
+					autonomousCommand = new CrossLineAuto();
+				}
+				break;
+			}
 
-		int choice = chooser.getSelected();
-		
-		switch(choice) {
-		case 0:
-			autonomousCommand = new CrossLineAuto();
-			break;
-		case 1:
-			if (switchPos == 'L') {
-				autonomousCommand = new LeftToLeftSwitchAuto();
-			} else {
-				autonomousCommand = new CrossLineAuto();
-			}
-			break;
-		case 2:
-			if (switchPos == 'R') {
-				autonomousCommand = new RightToRightSwitchAuto();
-			} else {
-				autonomousCommand = new CrossLineAuto();
-			}
-			break;
-		case 3:
-			if (switchPos == 'L') {
-				autonomousCommand = new CenterToLeftSwitchAuto();
-			} else if (switchPos == 'R') {
-				autonomousCommand = new CenterToRightSwitchAuto();
-			} else {
-				autonomousCommand = new CrossLineAuto();
-			}
-			break;
-		case 4:
-			if (scalePos == 'L') {
-				autonomousCommand = new LeftToLeftScaleAuto();
-			} else {
-				autonomousCommand = new CrossLineAuto();
-			}
-			break;
-		case 5:
-			if (scalePos == 'R') {
-				autonomousCommand = new RightToRightScaleAuto();
-			} else {
-				autonomousCommand = new CrossLineAuto();
-			}
-			break;
-		case 6:
-			if (switchPos == 'L') {
-				autonomousCommand = new LeftToLeftSwitchAuto();
-			} else if (scalePos == 'L') {
-				autonomousCommand = new LeftToLeftScaleAuto();
-			} else {
-				autonomousCommand = new CrossLineAuto();
-			}
-			break;
-		case 7:
-			if (switchPos == 'R') {
-				autonomousCommand = new RightToRightSwitchAuto();
-			} else if (scalePos == 'R') {
-				autonomousCommand = new RightToRightScaleAuto();
-			} else {
-				autonomousCommand = new CrossLineAuto();
-			}
-			break;
-		case 8:
-			if (scalePos == 'L') {
-				autonomousCommand = new LeftToLeftScaleAuto();
-			} else if (switchPos == 'L') {
-				autonomousCommand = new LeftToLeftSwitchAuto();
-			} else {
-				autonomousCommand = new CrossLineAuto();
-			}
-			break;
-		case 9:
-			if (scalePos == 'R') {
-				autonomousCommand = new RightToRightScaleAuto();
-			} else if (switchPos == 'R') {
-				autonomousCommand = new RightToRightSwitchAuto();
-			} else {
-				autonomousCommand = new CrossLineAuto();
-			}
-			break;
+//			if (choice == 0) {
+//				autonomousCommand = new CrossLineAuto();
+//			} else if (choice == 1) {
+//				if (switchPos == 'L') {
+//					autonomousCommand = new LeftToLeftSwitchAuto();
+//				} else {
+//					autonomousCommand = new CrossLineAuto();
+//				}
+//			} else if (choice == 2) {
+//				if (switchPos == 'R') {
+//					autonomousCommand = new RightToRightSwitchAuto();
+//				} else {
+//					autonomousCommand = new CrossLineAuto();
+//				}
+//			} else if (choice == 3) {
+//				if (switchPos == 'L') {
+//					autonomousCommand = new CenterToLeftSwitchAuto();
+//				} else if (switchPos == 'R') {
+//					autonomousCommand = new CenterToRightSwitchAuto();
+//				} else {
+//					autonomousCommand = new CrossLineAuto();
+//				}
+//			} else if (choice == 4) {
+//				if (scalePos == 'L') {
+//					autonomousCommand = new LeftToLeftScaleAuto();
+//				} else {
+//					autonomousCommand = new CrossLineAuto();
+//				}
+//			} else if (choice == 5) {
+//				if (scalePos == 'R') {
+//					autonomousCommand = new RightToRightScaleAuto();
+//				} else {
+//					autonomousCommand = new CrossLineAuto();
+//				}
+//			} else if (choice == 6) {
+//				if (switchPos == 'L') {
+//					autonomousCommand = new LeftToLeftSwitchAuto();
+//				} else if (scalePos == 'L') {
+//					autonomousCommand = new LeftToLeftScaleAuto();
+//				} else {
+//					autonomousCommand = new CrossLineAuto();
+//				}
+//			} else if (choice == 7) {
+//				if (switchPos == 'R') {
+//					autonomousCommand = new RightToRightSwitchAuto();
+//				} else if (scalePos == 'R') {
+//					autonomousCommand = new RightToRightScaleAuto();
+//				} else {
+//					autonomousCommand = new CrossLineAuto();
+//				}
+//			}
+	
 		}
-
-//		if (choice == 0) {
-//			autonomousCommand = new CrossLineAuto();
-//		} else if (choice == 1) {
-//			if (switchPos == 'L') {
-//				autonomousCommand = new LeftToLeftSwitchAuto();
-//			} else {
-//				autonomousCommand = new CrossLineAuto();
-//			}
-//		} else if (choice == 2) {
-//			if (switchPos == 'R') {
-//				autonomousCommand = new RightToRightSwitchAuto();
-//			} else {
-//				autonomousCommand = new CrossLineAuto();
-//			}
-//		} else if (choice == 3) {
-//			if (switchPos == 'L') {
-//				autonomousCommand = new CenterToLeftSwitchAuto();
-//			} else if (switchPos == 'R') {
-//				autonomousCommand = new CenterToRightSwitchAuto();
-//			} else {
-//				autonomousCommand = new CrossLineAuto();
-//			}
-//		} else if (choice == 4) {
-//			if (scalePos == 'L') {
-//				autonomousCommand = new LeftToLeftScaleAuto();
-//			} else {
-//				autonomousCommand = new CrossLineAuto();
-//			}
-//		} else if (choice == 5) {
-//			if (scalePos == 'R') {
-//				autonomousCommand = new RightToRightScaleAuto();
-//			} else {
-//				autonomousCommand = new CrossLineAuto();
-//			}
-//		} else if (choice == 6) {
-//			if (switchPos == 'L') {
-//				autonomousCommand = new LeftToLeftSwitchAuto();
-//			} else if (scalePos == 'L') {
-//				autonomousCommand = new LeftToLeftScaleAuto();
-//			} else {
-//				autonomousCommand = new CrossLineAuto();
-//			}
-//		} else if (choice == 7) {
-//			if (switchPos == 'R') {
-//				autonomousCommand = new RightToRightSwitchAuto();
-//			} else if (scalePos == 'R') {
-//				autonomousCommand = new RightToRightScaleAuto();
-//			} else {
-//				autonomousCommand = new CrossLineAuto();
-//			}
-//		}
-//
+		//
 			// schedule the autonomous command (example)
 			if (autonomousCommand != null)
 				autonomousCommand.start();

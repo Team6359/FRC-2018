@@ -51,8 +51,8 @@ public class CMD_DriveForward extends Command {
 	// Called repeatedly when this Command is scheduled to run
 	protected void execute() {
 		readableOutput = output.getOutput();
-		Robot.driveTrain.Drive(-readableOutput * accelScale + (Robot.sensors.gyro(false)/90),
-				-readableOutput * accelScale - (Robot.sensors.gyro(false)/90), 0);
+		Robot.driveTrain.Drive(-readableOutput * accelScale + (Robot.sensors.gyro(false)/22.5),
+				-readableOutput * accelScale - (Robot.sensors.gyro(false)/22.5), 0);
 		SmartDashboard.putNumber("Drive Setpoint", driveController.getSetpoint());
 		SmartDashboard.putNumber("LeftSpeedPID", readableOutput);
 		SmartDashboard.putNumber("RightSpeedPID", readableOutput);

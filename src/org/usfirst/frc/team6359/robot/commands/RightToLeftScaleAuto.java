@@ -12,7 +12,7 @@ public class RightToLeftScaleAuto extends CommandGroup {
     public RightToLeftScaleAuto() {
     	addSequential(new CMD_LiftReset()); // Reset 0 on lift
 		addSequential(new CMD_LiftIncrement()); // Set to drive position
-		addSequential(new CMD_DriveForward(261.47 + Robot.LENGTH)); // Drive away from wall
+		addSequential(new CMD_DriveForward(228.5 - Robot.LENGTH)); // Drive away from wall
 		addSequential(new CMD_TurnDegrees(-90)); // Turn left
 		addSequential(new CMD_DriveForward(264)); // Drive across field
 		addSequential(new CMD_TurnDegrees(90)); // Turn right
