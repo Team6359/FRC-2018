@@ -30,7 +30,8 @@ public class SS_Lift extends PIDSubsystem {
 	boolean softLimitLow = false;
 	boolean allowDown = false;
 	boolean cutPower = false; 
-	
+	boolean setPointDebounce = false;
+	boolean overRide = false;
 	
 	public SS_Lift() {
 
@@ -71,10 +72,7 @@ public class SS_Lift extends PIDSubsystem {
 	}
 
 	public void Control(double lT, double rT, boolean lB, boolean rB, int DPad, boolean a, boolean back,
-			boolean start) {
-		// Robot.bypassLimits = SmartDashboard.getBoolean("Limit Overide", false);
-
-		// setSetpoint(0);
+			boolean start, double lT2, double rT2, boolean lClick, boolean lB2, boolean rB2) {
 
 		if (Robot.sensors.liftLimitLow() && !limitDebounce) {
 			Robot.sensors.liftEncoder(true); // Reset to zero at bottom
@@ -85,6 +83,7 @@ public class SS_Lift extends PIDSubsystem {
 		}
 
 		double inputSpeed = rT - lT;
+		double overrideSpeed = rT2 - lT2;
 		if (rB || (lB && rB))
 			runWheels(1, 1);
 		else if (lB)
@@ -92,16 +91,24 @@ public class SS_Lift extends PIDSubsystem {
 		else
 			runWheels(0, 0);
 
-		if (back)
+		if (start)
 			runWheels(1, -0.5);
 
-		if (start)
+		if (back)
 			runWheels(-0.5, 1);
 
 		boolean up = DPad == 0;
 		boolean right = DPad == 90;
 		boolean down = DPad == 180;
 		boolean left = DPad == 270;
+		
+		if (lB2) {
+			overRide = true;
+		}
+		
+		if (rB2) {
+			overRide = false;
+		}
 		
 		if (Math.abs(inputSpeed) < 0.1 && !liftReset) {
 			liftReset = true;
@@ -124,6 +131,26 @@ public class SS_Lift extends PIDSubsystem {
 			Robot.sensors.liftEncoder(true);
 		}
 		
+		if (Math.abs(overrideSpeed) > 0.1) {
+			disable();
+			Lift(overrideSpeed);
+			setPointDebounce = false;
+		} else if (!setPointDebounce){
+			setSetpoint(Robot.sensors.liftEncoder(false));
+			enable();
+			setPointDebounce = true;
+		}
+		
+		if (overRide) {
+			disable();
+			Lift(inputSpeed);
+			setPointDebounce = false;
+		} else if (!setPointDebounce) {
+			setSetpoint(Robot.sensors.liftEncoder(false));
+			enable();
+			setPointDebounce = true;
+		}
+		
 		SmartDashboard.putNumber("DPad", DPad);
 		if (up && !debounce) {
 			increment();
@@ -137,6 +164,11 @@ public class SS_Lift extends PIDSubsystem {
 		} else if (left && !debounce) {
 			liftPos = 1;
 			liftTo(1);
+		}
+		
+		if (lClick) {
+			Robot.sensors.liftEncoder(true);
+			setSetpoint(0);
 		}
 
 		debounce = up || down;

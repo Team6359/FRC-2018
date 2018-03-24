@@ -97,7 +97,7 @@ public class SS_Intake extends Subsystem {
 
 		if (back) {
 			// intakeClose();
-			intakeWheels(0.2, -0);
+			intakeWheels(0.2,-0);
 		} else if (!rB && !start) {
 			// intakeOpen();
 		}

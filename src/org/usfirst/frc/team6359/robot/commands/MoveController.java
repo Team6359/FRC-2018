@@ -24,9 +24,11 @@ public class MoveController extends Command {
 	protected void execute() {
 		
 		@SuppressWarnings("unused")
-		boolean up, down, a, b, x, y, lB, rB, back, start, lClick, rClick;
+		boolean up, down, a, b, x, y, lB, rB, back, start, lClick, rClick, l3, lB2, rB2;
 		double lX, lY, rX, rY, lT, rT;
 		int DPad;
+		
+		double lT2, rT2;
 
 		lX = OI.controller1.getRawAxis(0);
 		lY = OI.controller1.getRawAxis(1);
@@ -44,16 +46,21 @@ public class MoveController extends Command {
 		rB = OI.controller1.getRawButton(6);
 		back = OI.controller1.getRawButton(7);
 		start = OI.controller1.getRawButton(8);
-		lClick = OI.controller1.getRawButton(9);
-		rClick = OI.controller1.getRawButton(10);
+		lClick = OI.controller1.getRawButton(9) || OI.controller2.getRawButton(9);
+		rClick = OI.controller1.getRawButton(10) || OI.controller2.getRawButton(10);
 		DPad = OI.controller1.getPOV();
 		
 		up = OI.controller1.getRawButton(10);
 		down = OI.controller1.getRawButton(9);
+		
+		lT2 = OI.controller2.getRawAxis(2);
+		rT2 = OI.controller2.getRawAxis(3);
+		lB2 = OI.controller2.getRawButton(5);
+		rB2 = OI.controller2.getRawButton(6);
 
 		Robot.driveTrain.ControllerDrive(lX, lY, rX, rY);
 		Robot.intake.Control(rB, back, start, lB, a, x);
-		Robot.lift.Control(lT, rT, lB, rB, DPad, a, back, start);
+		Robot.lift.Control(lT, rT, lB, rB, DPad, a, back, start, lT2, rT2, lClick, lB2, rB2);
 		Robot.hang.Control(b, y);
 		
 	}

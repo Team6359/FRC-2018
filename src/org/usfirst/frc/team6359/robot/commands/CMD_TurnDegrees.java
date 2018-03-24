@@ -28,13 +28,13 @@ public class CMD_TurnDegrees extends Command {
 		requires(Robot.driveTrain);
 		source = Robot.sensors.gyro;
 		output = new DummyPIDOutput();
-		turnController = new PIDController(0.02, 0, 0.053, source, output); // Carpet - 0.02, 0, 0.053
+		turnController = new PIDController(0.02,0.0, 0.053, source, output); // Carpet - 0.02, 0, 0.053
 		this.degrees = degrees;
 	}
 	protected void initialize() {
 		Robot.sensors.gyro.reset();
 		turnController.setSetpoint(degrees);
-		turnController.setAbsoluteTolerance(1);
+		turnController.setAbsoluteTolerance(10);
 		turnController.setOutputRange(-1, 1);
 		turnController.enable();
 		lastVal = Robot.sensors.gyro(false);
@@ -55,7 +55,7 @@ public class CMD_TurnDegrees extends Command {
 		}
 		lastVal = readableOutput;
 		
-		if (timeout > 20) {
+		if (timeout > 100) {
 			finished = true;
 		}
 	}

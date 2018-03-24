@@ -102,7 +102,7 @@ public class Robot extends IterativeRobot {
 			
 			switch(choice) {
 			case 0:
-				autonomousCommand = new RightToRightScaleAuto();
+				autonomousCommand = new CrossLineAuto();
 				break;
 			case 1:
 				if (switchPos == 'L') {

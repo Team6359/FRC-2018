@@ -6,6 +6,6 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
 public class TestAuto extends CommandGroup {
 
     public TestAuto() {
-    	addSequential(new CMD_TurnDegrees(90));
+    	addSequential(new CMD_TurnDegrees(-90));
     }
 }

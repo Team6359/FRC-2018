@@ -22,8 +22,12 @@ public class CMD_LiftIncrement extends Command {
 
     }
     
+    protected void execute() {
+    	Robot.lift.enable();
+    }
+    
     protected boolean isFinished() {
-        return System.currentTimeMillis() - startTime > 3000;
+        return System.currentTimeMillis() - startTime > 1500;
     }
 
 }
