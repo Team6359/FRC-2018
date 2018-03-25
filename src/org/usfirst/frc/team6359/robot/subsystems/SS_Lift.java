@@ -74,13 +74,13 @@ public class SS_Lift extends PIDSubsystem {
 	public void Control(double lT, double rT, boolean lB, boolean rB, int DPad, boolean a, boolean back,
 			boolean start, double lT2, double rT2, boolean lClick, boolean lB2, boolean rB2) {
 
-		if (Robot.sensors.liftLimitLow() && !limitDebounce) {
-			Robot.sensors.liftEncoder(true); // Reset to zero at bottom
-			liftPos = 0;
-			limitDebounce = true;
-		} else {
-			limitDebounce = false;
-		}
+//		if (Robot.sensors.liftLimitLow() && !limitDebounce) {
+//			Robot.sensors.liftEncoder(true); // Reset to zero at bottom
+//			liftPos = 0;
+//			limitDebounce = true;
+//		} else {
+//			limitDebounce = false;
+//		}
 
 		double inputSpeed = rT - lT;
 		double overrideSpeed = rT2 - lT2;
@@ -120,7 +120,7 @@ public class SS_Lift extends PIDSubsystem {
 			}else{
 				cutPower = false;
 			}
-			if (futSetPoint > 42000) {
+			if (futSetPoint > 45000) {
 				futSetPoint = Robot.sensors.liftEncoder(false) + inputSpeed * Math.abs(inputSpeed) * 4000;
 			}
 			setSetpoint(futSetPoint);
@@ -235,7 +235,7 @@ public class SS_Lift extends PIDSubsystem {
 	}
 
 	public void increment() {
-		if (liftPos < 5)
+		if (liftPos < 4)
 			liftTo(++liftPos);
 		enable();
 		ACCELSCALE = 1;
@@ -265,6 +265,8 @@ public class SS_Lift extends PIDSubsystem {
 		case 3:
 			setSetpoint(RobotMap.liftSetPointScaleNeutral);
 			break;
+		case 4:
+			setSetpoint(RobotMap.liftSetPointScaleHigh);
 		}
 	}
 

@@ -78,5 +78,5 @@ public class RobotMap {
 	public static double liftSetPointSwitch = 26 * cpiLift;
 	//public static double liftSetPointScaleLow = 62 * cpiLift;
 	public static double liftSetPointScaleNeutral = 72 * cpiLift;
-	//public static double liftSetPointScaleHigh = 84 * cpiLift;
+	public static double liftSetPointScaleHigh = 49000;
 }
