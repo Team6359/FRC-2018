@@ -28,7 +28,7 @@ public class SS_Lift extends PIDSubsystem {
 	boolean limitDebounce = false;
 	boolean liftReset = false;
 	boolean softLimitLow = false;
-	boolean allowDown = false;
+	boolean allowUp = false;
 	boolean cutPower = false; 
 	boolean setPointDebounce = false;
 	boolean overRide = false;
@@ -114,10 +114,13 @@ public class SS_Lift extends PIDSubsystem {
 			liftReset = true;
 		} else if (Math.abs(inputSpeed) >= 0.1) {
 			double futSetPoint = Robot.sensors.liftEncoder(false) + inputSpeed * Math.abs(inputSpeed) * 10000;
-			if (futSetPoint < 5000 && futSetPoint < getSetpoint()) {
+			if (futSetPoint < 5000 && futSetPoint < getSetpoint() && !allowUp) {
 				cutPower = true;
+				allowUp = true;
 				futSetPoint = getSetpoint();
-			}else{
+			}else if (futSetPoint > 5000){
+				allowUp = false;
+			}else {
 				cutPower = false;
 			}
 			if (futSetPoint > 45000) {

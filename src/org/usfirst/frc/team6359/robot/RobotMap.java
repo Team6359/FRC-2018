@@ -75,7 +75,7 @@ public class RobotMap {
 	// Inches * cpiLift
 	public static double liftSetPointFloor = 0;
 	public static double liftSetPointDrive = 4 * cpiLift;
-	public static double liftSetPointSwitch = 26 * cpiLift;
+	public static double liftSetPointSwitch = 34 * cpiLift;
 	//public static double liftSetPointScaleLow = 62 * cpiLift;
 	public static double liftSetPointScaleNeutral = 72 * cpiLift;
 	public static double liftSetPointScaleHigh = 49000;

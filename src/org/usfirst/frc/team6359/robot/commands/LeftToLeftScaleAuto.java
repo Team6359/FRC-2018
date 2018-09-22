@@ -9,12 +9,19 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
  */
 public class LeftToLeftScaleAuto extends CommandGroup {
 
-    public LeftToLeftScaleAuto() {
+	public LeftToLeftScaleAuto() {
+    	addSequential(new CMD_LiftIncrement()); // Lift to switch position
+    	addSequential(new CMD_LiftIncrement()); // Lift to switch position
+
     	addSequential(new CMD_DriveForward(260 + (Robot.LENGTH) - 36)); // Position halfway along the switch plate
     	addSequential(new CMD_TurnDegrees(45)); // Turn towards scale
+    	addSequential(new CMD_DriveForMillis(-0.5, 1000));
     	addSequential(new CMD_LiftIncrement()); // Lift to switch position
     	addSequential(new CMD_LiftIncrement()); // Lift to switch position
     	addSequential(new CMD_LiftIncrement()); // Lift to switch position
+
+    	addSequential(new CMD_DriveForMillis(0.5, 1000));
+
     	addSequential(new CMD_LiftOuttake()); // Release cubes
-    }
+	}
 }

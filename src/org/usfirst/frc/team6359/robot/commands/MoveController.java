@@ -46,17 +46,17 @@ public class MoveController extends Command {
 		rB = OI.controller1.getRawButton(6);
 		back = OI.controller1.getRawButton(7);
 		start = OI.controller1.getRawButton(8);
-		lClick = OI.controller1.getRawButton(9) || OI.controller2.getRawButton(9);
-		rClick = OI.controller1.getRawButton(10) || OI.controller2.getRawButton(10);
+		lClick = OI.controller1.getRawButton(9) || OI.joystick.getRawButton(9);
+		rClick = OI.controller1.getRawButton(10) || OI.joystick.getRawButton(10);
 		DPad = OI.controller1.getPOV();
 		
 		up = OI.controller1.getRawButton(10);
 		down = OI.controller1.getRawButton(9);
 		
-		lT2 = OI.controller2.getRawAxis(2);
-		rT2 = OI.controller2.getRawAxis(3);
-		lB2 = OI.controller2.getRawButton(5);
-		rB2 = OI.controller2.getRawButton(6);
+		lT2 = OI.joystick.getRawAxis(2);
+		rT2 = OI.joystick.getRawAxis(3);
+		lB2 = OI.joystick.getRawButton(5);
+		rB2 = OI.joystick.getRawButton(6);
 
 		Robot.driveTrain.ControllerDrive(lX, lY, rX, rY);
 		Robot.intake.Control(rB, back, start, lB, a, x);

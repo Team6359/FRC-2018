@@ -47,15 +47,15 @@ public class SS_DSOutput extends Subsystem {
 		leftSide = GenericHID.RumbleType.kLeftRumble;
 
 		if (right) {
-			OI.controller2.setRumble(rightSide, amplitude);
+			OI.joystick.setRumble(rightSide, amplitude);
 		} else {
-			OI.controller2.setRumble(rightSide, 0);
+			OI.joystick.setRumble(rightSide, 0);
 		}
 
 		if (left) {
-			OI.controller2.setRumble(leftSide, amplitude);
+			OI.joystick.setRumble(leftSide, amplitude);
 		} else {
-			OI.controller2.setRumble(leftSide, 0);
+			OI.joystick.setRumble(leftSide, 0);
 		}
 	}
 

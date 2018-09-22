@@ -27,7 +27,7 @@ public class CMD_LiftIncrement extends Command {
     }
     
     protected boolean isFinished() {
-        return System.currentTimeMillis() - startTime > 1500 || Math.abs(Robot.lift.getSetpoint() - Robot.sensors.liftEncoder(false)) < 1000; // Math.abs(Robot.lift.getSetpoint() - Robot.sensors.liftEncoder(false)) < 1000
+        return System.currentTimeMillis() - startTime > 1000 || Math.abs(Robot.lift.getSetpoint() - Robot.sensors.liftEncoder(false)) < 1300; // Math.abs(Robot.lift.getSetpoint() - Robot.sensors.liftEncoder(false)) < 1000
     }
 
 }

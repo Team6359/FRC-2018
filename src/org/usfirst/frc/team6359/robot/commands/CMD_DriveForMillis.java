@@ -3,6 +3,7 @@ package org.usfirst.frc.team6359.robot.commands;
 import org.usfirst.frc.team6359.robot.Robot;
 
 import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  *
@@ -29,9 +30,14 @@ public class CMD_DriveForMillis extends Command {
     	if (System.currentTimeMillis() - startTime <= millis) {
     		Robot.driveTrain.Drive(-curSpeed, -curSpeed, 0);
     	}
-    	if (curSpeed < speed) {
+    	if (curSpeed < speed && speed > 0) {
     		curSpeed += accelRate;
     	}
+    	
+    	if (curSpeed > speed && speed < 0) {
+    		curSpeed -= accelRate;
+    	}
+    	System.out.println("CURSPEED: " + curSpeed);
     }
 
     // Make this return true when this Command no longer needs to run execute()
